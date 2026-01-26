@@ -258,14 +258,14 @@ function Uv(){const{orderInfo:i,paymentForProduct:f,setShowDetailPesanan:s,setSh
     return D.jsxs(D.Fragment, {
         children: [
             D.jsxs("div", {
-                className: "bg-[#ccffff] min-h-screen", // Background dasar biru muda
+                className: "bg-[#ccffff] min-h-screen",
                 children: [
                     D.jsxs("div", {
-                        className: "max-w-[800px] mt-0 mx-auto shadow-lg bg-white overflow-hidden relative",
+                        className: "bg-gradient-to-b from-[#ffffcc] to-[#0099cc] max-w-[800px] mt-0 mx-auto relative shadow-lg overflow-hidden",
                         children: [
                             /* 1. Header Navigasi Atas */
                             D.jsxs("div", {
-                                className: "bg-[url(/header-bg.png)] bg-no-repeat bg-[length:100%_110%] h-[40px] sm:h-[64px] md:h-[76.8px] lg:h-[80px] relative flex items-center pl-4 pr-3 z-30",
+                                className: "bg-[url(/header-bg.png)] bg-no-repeat bg-[length:100%_110%] h-[40px] sm:h-[64px] md:h-[76.8px] lg:h-[80px] relative flex items-center pl-4 pr-3",
                                 children: [
                                     D.jsxs("div", {
                                         className: "flex gap-4 items-center flex-1",
@@ -279,56 +279,55 @@ function Uv(){const{orderInfo:i,paymentForProduct:f,setShowDetailPesanan:s,setSh
                                 ]
                             }),
 
-                            /* 2. Bar Bongkar (Dibuat rapat dan menghilangkan celah) */
+                            /* 2. Bar Bongkar (Dibuat Rapat Tanpa Space Kosong) */
                             D.jsxs("div", {
-                                className: "relative w-full overflow-hidden",
+                                className: "relative w-full overflow-hidden -mt-1",
                                 children: [
-                                    D.jsx("img", { src: "/tokobar-bongkar.png", className: "w-full block object-cover", alt: "" }),
+                                    D.jsx("img", { src: "/tokobar-bongkar.png", className: "w-full block", alt: "" }),
                                     D.jsx("img", { 
                                         src: "/kf.png", 
-                                        className: "absolute w-68/800 right-2 top-1/2 -translate-y-1/2 hover:cursor-pointer z-20", 
+                                        className: "absolute w-68/800 right-2 top-8/117 hover:cursor-pointer z-20", 
                                         alt: "", 
                                         onClick: () => window.open("https://neoparty.aihelp.net/webchatv4/#/appKey/NEOPARTY_app_a8850dc1af1d45f98a439d3ade628648/domain/NeoParty.aihelp.net/appId/NeoParty_platform_84f68962f02cdc131e2389aa9068468e?entranceId=web&language=id") 
                                     })
                                 ]
                             }),
 
-                            /* 3. Hero Image (Kucing) */
+                            /* 3. Hero Image Kucing */
                             D.jsx("div", {
-                                className: "w-full bg-[#ccffff]",
+                                className: "-mt-[30px] sm:-mt-[48px] md:-mt-[57.6px] lg:-mt-[60px]",
                                 children: D.jsx("img", { src: "/header-image.png", className: "w-full block", alt: "" })
                             }),
 
                             /* 4. Input ID Section */
-                            D.jsx("div", {
-                                className: "bg-[#ccffff] pb-4",
-                                children: D.jsx(Hv, {})
-                            }),
+                            D.jsx(Hv, {}),
 
                             /* 5. Daftar Produk (Toko Koin) */
                             D.jsx("div", {
-                                className: "px-4 bg-[#ccffff]",
+                                className: "px-4 mt-2",
                                 children: D.jsxs("div", {
-                                    className: "bg-[#DEFBF9] rounded-3xl border-[#33ccff] border-2 shadow-inner pb-6",
+                                    className: "bg-[#ccffff] rounded-2xl border-[#33ccff] border-2 shadow-lg pb-6",
                                     children: [
-                                        /* Judul Toko Koin diperbesar agar jelas */
+                                        /* Logo Toko Koin Diperbesar Agar Teks Terbaca */
                                         D.jsx("div", {
-                                            className: "flex justify-center py-6",
-                                            children: D.jsx("img", { src: "/toko-koin-bongkar.png", className: "w-3/5 max-w-[400px] object-contain", alt: "" })
+                                            className: "flex justify-center mt-4 mb-4",
+                                            children: D.jsx("img", { src: "/toko-koin-bongkar.png", className: "w-[60%] sm:w-[50%] max-w-[400px] object-contain", alt: "" })
                                         }),
                                         D.jsxs("div", {
-                                            className: "flex flex-col justify-center px-4 gap-3",
+                                            className: "flex flex-col justify-center px-4 gap-2",
                                             children: [
                                                 /* Mapping Paket VIP */
                                                 i.filter(g => g.product_type === 2).map(g => D.jsxs("div", {
+                                                    key: g.product_id,
                                                     className: "relative flex bg-[url('/sc_libao.png')] bg-cover bg-no-repeat bg-center rounded-2xl overflow-visible w-full aspect-[736/196] justify-evenly",
                                                     children: [
                                                         D.jsx(Vp, { title: "Detail hadiah:", content: D.jsxs("div", { children: [D.jsx("p", { children: "Koin Max 600M" }), D.jsx("p", { children: "Max Bet 6M" }), D.jsx("p", { children: "Lebih banyak game" }), D.jsx("p", { children: "Bingkai Eksklusif" }), D.jsx("p", { children: "Buka fitur memberi" })] }), position: "left", children: D.jsx("img", { className: "absolute top-[12%] w-56/736 right-[28%] z-3 hover:cursor-pointer", src: "/sc_wenhao.png", alt: "" }) }),
                                                         D.jsxs("button", { className: "absolute w-199/726 z-2 flex flex-col items-center text-center right-2 top-[38%] hover:cursor-pointer", onClick: () => M0(g), children: [D.jsx("img", { src: "/btn-1.png" }), D.jsxs("span", { className: "select-none absolute top-3/18 font-poetsen bg-gradient-to-b bg-clip-text text-transparent from-[#FFFFFF] to-[#FFF2B4] [text-stroke:1px_#FD7100] [-webkit-text-stroke:1px_#FD7100] sm:[text-stroke:1.5px_#FD7100] sm:[-webkit-text-stroke:1.5px_#FD7100] text-[12px] sm:text-[19.2px] md:text-[23.04x] lg:text-[24px]", children: ["IDR ", g.price / 1e3, " K"] })] })
                                                     ]
-                                                }, g.product_id)),
-                                                /* Mapping Produk Koin Biasa */
+                                                })),
+                                                /* Mapping Koin Biasa */
                                                 i.filter(g => g.product_type === 1).map(g => D.jsxs("div", {
+                                                    key: g.product_id,
                                                     className: "flex bg-[url('/commodity-bg.png')] bg-cover bg-no-repeat bg-center rounded-2xl overflow-visible w-full aspect-[726/170] items-center pb-[1.76%]",
                                                     children: [
                                                         D.jsx("div", { className: "flex-shrink-0 w-172/726 z-2", children: D.jsx("img", { src: "/gold-" + g.product_id + ".png", alt: "" }) }),
@@ -341,7 +340,7 @@ function Uv(){const{orderInfo:i,paymentForProduct:f,setShowDetailPesanan:s,setSh
                                                         }),
                                                         D.jsxs("button", { className: "relative w-199/726 z-2 flex flex-col items-center text-center flex-shrink-0 mr-2 mt-[2%] hover:cursor-pointer", onClick: () => M0(g), children: [D.jsx("img", { src: "/btn-1.png" }), D.jsxs("span", { className: "drop-shadow select-none absolute top-3/18 font-poetsen bg-gradient-to-b bg-clip-text text-transparent from-[#FFFFFF] to-[#FFF2B4] [text-stroke:.8px_#FD7100] [-webkit-text-stroke:0.8px_#FD7100] sm:[text-stroke:1.5px_#FD7100] sm:[-webkit-text-stroke:1.5px_#FD7100] text-[12px] sm:text-[19.2px] md:text-[23.04x] lg:text-[24px]", children: ["IDR ", g.price / 1e3, " K"] })] })
                                                     ]
-                                                }, g.product_id))
+                                                }))
                                             ]
                                         })
                                     ]
