@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pembayaran QRIS</title>
+  <style>
+    body {
+      margin: 0;
+      background: #0f172a;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .box {
+      background: #1e293b;
+      padding: 24px;
+      border-radius: 16px;
+      text-align: center;
+      width: 300px;
+    }
+    img {
+      width: 220px;
+      background: white;
+      padding: 10px;
+      border-radius: 12px;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 12px;
+      background: #f97316;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Scan QRIS</h2>
+    <img id="qr" />
+    <p id="amount"></p>
+    <button onclick="finish()">Lanjutkan</button>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const qr = params.get("qr");
+    const amount = params.get("amount");
+
+    document.getElementById("qr").src = qr;
+    document.getElementById("amount").innerText =
+      "Rp " + Number(amount).toLocaleString("id-ID");
+
+    function finish() {
+      window.opener?.postMessage("QRIS_DONE", "*");
+      window.close();
+    }
+  </script>
+</body>
+</html>

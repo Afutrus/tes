@@ -1,0 +1,16 @@
+<html>
+<head>
+<title>404 Not Found</title>
+</head>
+<body>
+<h1>404 Not Found</h1>
+<ul>
+<li>Code: NoSuchKey</li>
+<li>Message: The specified key does not exist.</li>
+<li>RequestId: 0000019BC7234F8B82E63D3951FEAB75</li>
+<li>HostId: zbC5jpILsNKQpyXTfdIdd/R6c+3mxyXdOIKv0wG7UhFGv5YkKGtt0wQdhUvRd/DN</li>
+<li>Key: MANDIRI.png</li>
+</ul>
+<hr/>
+</body>
+</html>

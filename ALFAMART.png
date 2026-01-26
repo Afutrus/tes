@@ -1,0 +1,16 @@
+<html>
+<head>
+<title>404 Not Found</title>
+</head>
+<body>
+<h1>404 Not Found</h1>
+<ul>
+<li>Code: NoSuchKey</li>
+<li>Message: The specified key does not exist.</li>
+<li>RequestId: 0000019BC7234EDC844DECF0C70BB324</li>
+<li>HostId: rplCrGZBZbFM0BmctjcZOZm680Y5mVNhaEw/MF8GXbAcWEDonBenJarlm0geB36G</li>
+<li>Key: ALFAMART.png</li>
+</ul>
+<hr/>
+</body>
+</html>
