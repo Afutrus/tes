@@ -122,8 +122,9 @@
                 });
 
                 if (response.ok) {
-                    alert("Laporan berhasil dikirim! Admin akan memproses pencairan Anda segera.");
-                    window.location.href = "index.html";
+    // Redirect ke halaman sukses membawa data nama produk (opsional)
+    window.location.href = "success.html";
+}
                 } else {
                     throw new Error("Gagal kirim");
                 }
