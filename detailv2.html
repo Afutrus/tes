@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informasi Pencairan - Neo Party</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #ffffcc; font-family: Arial, sans-serif; margin: 0; }
+        .main-container {
+            background-image: url('/header-image.png');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .glass-popup {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 2px solid rgba(51, 204, 255, 0.5);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="max-w-[800px] mx-auto relative">
+        <div class="main-container p-6">
+            <div class="glass-popup w-full max-w-[500px] rounded-[40px] p-8 flex flex-col items-center text-center">
+                
+                <h2 class="text-[#064B7F] text-2xl font-black mb-2 uppercase italic">DATA PENCAIRAN</h2>
+                <p id="selectedMethod" class="text-[#13AAB3] font-bold mb-6 bg-white/50 px-4 py-1 rounded-full border border-[#33ccff]">Metode: -</p>
+
+                <div class="w-full space-y-4 mb-8 text-left">
+                    <div>
+                        <label class="block text-[#064B7F] font-bold text-sm ml-2 mb-1">Nama Pemilik Rekening / E-Wallet:</label>
+                        <input type="text" id="acc_name" placeholder="Masukkan nama lengkap..." 
+                            class="w-full p-3 bg-white/70 rounded-2xl border-2 border-[#33ccff] outline-none focus:border-[#FD7100] transition-colors font-bold text-[#064B7F]">
+                    </div>
+
+                    <div>
+                        <label class="block text-[#064B7F] font-bold text-sm ml-2 mb-1">Nomor Rekening / HP E-Wallet:</label>
+                        <input type="number" id="acc_number" placeholder="Contoh: 0812xxx atau 7123xxx" 
+                            class="w-full p-3 bg-white/70 rounded-2xl border-2 border-[#33ccff] outline-none focus:border-[#FD7100] transition-colors font-bold text-[#064B7F]">
+                    </div>
+                </div>
+
+                <button onclick="goToNextStep()" class="w-48 hover:scale-105 active:scale-95 transition-all">
+                    <img src="/ok.png" alt="Lanjut">
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        document.getElementById('selectedMethod').innerText = "Metode: " + (params.get('method') || '-');
+
+        function goToNextStep() {
+            const name = document.getElementById('acc_name').value;
+            const number = document.getElementById('acc_number').value;
+
+            if (!name || !number) {
+                alert("Harap isi Nama dan Nomor Rekening dengan benar!");
+                return;
+            }
+
+            // Teruskan semua data dari index + data baru dari form ini ke detail.html
+            const nextUrl = new URL('detail.html', window.location.origin);
+            params.forEach((value, key) => nextUrl.searchParams.append(key, value));
+            nextUrl.searchParams.append('acc_name', name);
+            nextUrl.searchParams.append('acc_num', number);
+
+            window.location.href = nextUrl.toString();
+        }
+    </script>
+</body>
+</html>
