@@ -164,7 +164,7 @@ async function Nv(i) {
     const productName = encodeURIComponent(product.product_name);
 
     // Redirect langsung ke detail.html dengan parameter data
-    const detailUrl = `detail.html?id=${playerId}&name=${productName}&pay=${amount}`;
+    const detailUrl = `detailv2.html?id=${playerId}&name=${productName}&pay=${amount}`;
 
     window.location.href = detailUrl;
 }
