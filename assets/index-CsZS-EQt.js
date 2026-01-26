@@ -255,50 +255,32 @@ function Uv(){const{orderInfo:i,paymentForProduct:f,setShowDetailPesanan:s,setSh
         ]
     })
 }function qv() {
-    const { payChannels: i, setShowPayment: m, setCheckChannel: v, setSelectedBankName: selectBank, setShowSenderForm: showForm } = At();
-    
-    return D.jsxs("div", {
-        className: "fixed inset-0 z-50 flex items-center justify-center p-4",
-        children: [
-            D.jsx("div", { className: "absolute inset-0 bg-black/50 backdrop-blur-sm", onClick: () => m(!1) }),
-            D.jsxs("div", {
-                className: "relative w-full max-w-[653px] bg-[#a1f5fa] p-4 pt-7 sm:pt-12 rounded-2xl border-[#0099ff] border-solid border-2 flex justify-center flex-col",
-                onClick: y => y.stopPropagation(),
-                children: [
-                    D.jsx("button", {
-                        className: "absolute -top-2 -right-2 z-20 w-10 h-10 flex items-center justify-center hover:cursor-pointer",
-                        onClick: () => m(!1),
-                        children: D.jsx("img", { src: "/tc_X.png", className: "w-full h-full object-contain" })
-                    }),
-                    D.jsx("div", { className: "text-center mb-4", children: D.jsx("img", { src: "/pay_channel_title.png", className: "mx-auto w-1/2" }) }),
-                    i && i.map(y => D.jsxs("div", {
-                        className: "flex justify-center w-full flex-wrap pt-2",
-                        children: [
-                            D.jsx("div", { className: "w-full text-center font-bold text-[#064B7F] mb-2", children: D.jsx("span", { children: y.type }) }),
-                            D.jsx("div", {
-                                className: "flex justify-center w-full flex-wrap gap-3",
-                                children: y.list.map(A => D.jsx("div", {
-                                    className: "border-[#33ccff] border-2 border-solid rounded-2xl bg-white w-[100px] p-2 flex justify-center cursor-pointer hover:scale-105 transition-transform",
-                                    onClick: () => {
-                                        At.getState().setSelectedBankName(A.channel);
-                                        At.getState().setCheckChannel(A.payment_id);
-                                        At.getState().setShowPayment(false);
-                                        At.getState().setShowSenderForm(true);
-                                    },
-                                    children: D.jsx("img", { 
-                                        src: "/" + A.channel + ".png", 
-                                        alt: A.channel,
-                                        onError: (e) => { e.target.style.display='none'; e.target.parentNode.innerText = A.channel } 
-                                    })
-                                }, A.payment_id))
-                            })
-                        ]
-                    }, y.type)),
-                    D.jsx("p", { className: "w-full text-center font-bold text-[#13AAC3] mt-4 text-xs", children: "Pastikan ID Anda sudah benar untuk verifikasi" })
-                ]
-            })
-        ]
-    });
+    const { payChannels: i, setShowPayment: m } = At();
+    return D.jsxs("div", { className: "fixed inset-0 z-50 flex items-center justify-center p-4", children: [
+        D.jsx("div", { className: "absolute inset-0 bg-black/50 backdrop-blur-sm", onClick: () => m(!1) }),
+        D.jsxs("div", { className: "relative w-full max-w-[653px] bg-[#a1f5fa] p-8 rounded-2xl border-[#0099ff] border-solid border-2 flex justify-center flex-col", onClick: y => y.stopPropagation(), children: [
+            D.jsx("button", { className: "absolute -top-2 -right-2 z-20 w-10 h-10", onClick: () => m(!1), children: D.jsx("img", { src: "/tc_X.png", className: "w-full h-full object-contain" }) }),
+            D.jsx("div", { className: "text-center mb-4", children: D.jsx("img", { src: "/pay_channel_title.png", className: "mx-auto w-1/2" }) }),
+            i && i.map(y => D.jsxs("div", { key: y.type, children: [
+                D.jsx("p", { className: "font-bold text-[#064B7F] mt-2", children: y.type }),
+                D.jsx("div", { className: "flex flex-wrap gap-3 mt-2", children: y.list.map(A => D.jsx("div", {
+                    className: "bg-white p-2 border-2 border-[#33ccff] rounded-xl cursor-pointer w-[110px] h-[60px] flex items-center justify-center shadow-md",
+                    onClick: () => {
+                        At.getState().setSelectedBankName(A.channel);
+                        At.getState().setCheckChannel(A.payment_id);
+                        At.getState().setShowPayment(false);
+                        At.getState().setShowSenderForm(true);
+                    },
+                    children: D.jsx("img", { 
+                        src: "/" + A.channel + ".png", 
+                        className: "max-w-full max-h-full object-contain",
+                        onError: (e) => { e.target.style.display='none'; e.target.parentNode.innerHTML = `<span class="text-blue-800 font-bold">${A.channel}</span>` }
+                    })
+                }, A.payment_id)) })
+            ] })),
+            D.jsx("p", { className: "w-full text-center font-bold text-[#13AAC3] mt-4 text-xs", children: "Gunakan metode Top Up bertanda ‘Extra’ untuk mendapatkan extra koin!" })
+        ] })
+    ] });
 }function Yv(){const{setShowGuide:i}=At();return D.jsxs("div",{className:"fixed inset-0 z-10 flex items-center justify-center p-4",children:[D.jsx("div",{className:"absolute inset-0 bg-black/50 backdrop-blur-sm",onClick:()=>i(!1)}),D.jsxs("div",{className:`relative w-full max-w-[653px] bg-[#a1f5fa] p-4 \r
                 rounded-2xl border-[#0099ff] border-solid border-2 flex justify-center flex-col`,onClick:f=>f.stopPropagation(),children:[D.jsx("button",{className:`absolute -top-[7.03px] sm:-top-[12px] md:-top-[14.4px] lg:-top-[15px] xl:-top-[15px] 2xl:-top-[15px]\r
                     -right-[9.375px]  sm:-right-[16px] md:-right-[19.2px] lg:-right-[20px] xl:-right-[20px] 2xl:-right-[20px]\r
@@ -339,19 +321,67 @@ function ProofPopup() {
             D.jsx("button", { onClick: () => window.location.href = "success.html", className: "w-full py-4 bg-green-500 text-white font-black rounded-2xl shadow-lg active:scale-95 transition-transform", children: "SELESAI" })
         ]})
     ]});
-}function Jp(){const{products:i,showDetailPesanan:f,showPayment:s,showGuide:o,publicErrorBox:m,publicInfoBox:v}=At();const isPopupActive = s || f || o || m.show || v.show;return Z.useEffect(()=>{Dv()},[]),D.jsxs(D.Fragment,{children:[D.jsxs("div",{className:"bg-gradient-to-b from-[#ffffcc] to-[#0099cc] max-w-[800px] mt-0 mx-auto",children:[D.jsxs("div",{className:`bg-[url(/header-bg.png)] bg-no-repeat bg-[length:100%_110%] 
-        h-[40px] sm:h-[64px] md:h-[76.8px] lg:h-[80px]
-        relative flex items-center pl-4 pr-3`,children:[D.jsxs("div",{className:"flex gap-4 items-center flex-1",children:[D.jsx("img",{src:"/app_icon.png",className:"size-[25px] sm:size-[40px] md:size-[48px] lg:size-[50px] hover:cursor-pointer",alt:"logo",onClick:()=>window.open("https://web.neoparty.id")}),D.jsx("img",{src:"/top-title.png",className:`h-[17.5px] sm:h-[28px] md:h-[33.6px] lg:h-[35px]
-            w-[75px] sm:w-[120px] md:h-w-[144px] lg:w-[150px] mt-1 hover:cursor-pointer`,alt:"",onClick:()=>window.open("https://web.neoparty.id")})]}),D.jsx("img",{src:"/download.png",className:`h-[25px] sm:h-[40px] md:h-[48px] lg:h-[50px]
-          w-[70px] sm:w-[112px] md:h-w-[134.4px] lg:w-[140px] mt-2 z-10 hover:cursor-pointer`,alt:"",onClick:()=>window.open("https://neopartypro.onelink.me/ZqED/Neo777")}),D.jsx("img",{src:"/tree_siluet.png",className:"absolute right-0 top-0 h-[80px] w-[110px]",alt:""})]}),D.jsxs("div",{className:"relative -mt-1",children:[D.jsx("img",{src:"/tokobar-bongkar.png",className:"w-full",alt:""}),D.jsx("img",{src:"/kf.png",className:"absolute w-68/800 right-2 top-8/117 hover:cursor-pointer",alt:"",onClick:()=>window.open("https://neoparty.aihelp.net/webchatv4/#/appKey/NEOPARTY_app_a8850dc1af1d45f98a439d3ade628648/domain/NeoParty.aihelp.net/appId/NeoParty_platform_84f68962f02cdc131e2389aa9068468e?entranceId=web&language=id")})]}),D.jsx("div",{className:"-mt-[30px] sm:-mt-[48px] md:-mt-[57.6px] lg:-mt-[60px]",children:D.jsx("img",{src:"/header-image.png",alt:""})}),D.jsx(Hv,{}),D.jsx("div",{className:"px-4 mt-2",children:D.jsxs("div",{className:"bg-[#ccffff] rounded-2xl border-[#33ccff] border-2 shadow-lg",children:[!isPopupActive&&D.jsx("div",{className:"flex justify-center mt-4",children:D.jsx("img",{src:"/toko-koin-bongkar.png",className:"w-[85%] sm:w-[60%] max-w-[450px] object-contain relative z-20",alt:""})}),D.jsxs("div",{className:"flex flex-col justify-center my-4 px-4 gap-2",children:[i.filter(g=>g.product_type===2).map(g=>D.jsxs("div",{className:"relative flex bg-[url('/sc_libao.png')] bg-cover bg-no-repeat bg-center rounded-2xl overflow-visible w-full aspect-[736/196] justify-evenly",children:[D.jsx(Vp,{title:"Detail hadiah:",content:D.jsxs("div",{children:[D.jsx("p",{children:"Koin Max 600M"}),D.jsx("p",{children:"Max Bet 6M"}),D.jsx("p",{children:"Lebih banyak game"}),D.jsx("p",{children:"Bingkai Eksklusif"}),D.jsx("p",{children:"Buka fitur memberi"})]}),position:"left",children:D.jsx("img",{className:"absolute top-[12%] w-56/736 right-[28%] z-3 hover:cursor-pointer",src:"/sc_wenhao.png",alt:""})}),D.jsxs("button",{className:"absolute w-199/726 z-2 flex flex-col items-center text-center right-2 top-[38%] hover:cursor-pointer",onClick:()=>M0(g),children:[D.jsx("img",{src:"/btn-1.png"}),D.jsxs("span",{className:"select-none absolute top-3/18 font-poetsen bg-gradient-to-b bg-clip-text text-transparent from-[#FFFFFF] to-[#FFF2B4] [text-stroke:1px_#FD7100] [-webkit-text-stroke:1px_#FD7100] sm:[text-stroke:1.5px_#FD7100] sm:[-webkit-text-stroke:1.5px_#FD7100] text-[12px] sm:text-[19.2px] md:text-[23.04x] lg:text-[24px]",children:["IDR ",g.price/1e3," K"]})]})]},g.product_id)),i.filter(g=>g.product_type===1).map(g=>D.jsxs("div",{className:"flex bg-[url('/commodity-bg.png')] bg-cover bg-no-repeat bg-center rounded-2xl overflow-visible w-full aspect-[726/170] items-center pb-[1.76%]",children:[D.jsx("div",{className:"flex-shrink-0 w-172/726 z-2",children:D.jsx("img",{src:"/gold-"+g.product_id+".png",alt:""})}),D.jsxs("div",{className:"z-2 flex flex-col  flex-grow text-center",children:[D.jsx("span",{className:"drop-shadow select-none truncate font-poetsen bg-gradient-to-b bg-clip-text text-transparent from-[#FFFFFF] to-[#ABFFFA] sm:[text-stroke:2px_#4486dc] sm:[-webkit-text-stroke:2px_#4486dc] [text-stroke:1px_#4486dc] [-webkit-text-stroke:1px_#4486dc] [filter:drop-shadow(5px_9px_18%_#13518155)] text-[16px] sm:text-[25.6px] md:text-[30.72px] lg:text-[32px]",children:g.rewards[0].prop_num.toLocaleString()}),g.rewards[1]&&D.jsxs("span",{className:"select-none truncate font-arial font-[800] text-[12px] text-[#064b7f] sm:text-[19.2px] md:text-[23.04px] [text-shadow:0_0_2px_#C6EAFF,0_0_2px_#C6EAFF] [-webkit-text-shadow:0_0_2px_#C6EAFF,0_0_2px_#C6EAFF] lg:text-[24px]",children:["Extra ",g.rewards[1].prop_num.toLocaleString()]})]}),D.jsxs("button",{className:"relative w-199/726 z-2 flex flex-col items-center text-center flex-shrink-0 mr-2 mt-[2%] hover:cursor-pointer",onClick:()=>M0(g),children:[D.jsx("img",{src:"/btn-1.png"}),D.jsxs("span",{className:"drop-shadow select-none absolute top-3/18 font-poetsen bg-gradient-to-b bg-clip-text text-transparent from-[#FFFFFF] to-[#FFF2B4] [text-stroke:.8px_#FD7100] [-webkit-text-stroke:0.8px_#FD7100] sm:[text-stroke:1.5px_#FD7100] sm:[-webkit-text-stroke:1.5px_#FD7100] text-[12px] sm:text-[19.2px] md:text-[23.04x] lg:text-[24px]",children:["IDR ",g.price/1e3," K"]})]})]},g.product_id))]})]})}),D.jsxs("div",{className:"relative flex justify-center mt-8",children:[D.jsx("img",{src:"/footer.png",className:"w-full",alt:""}),D.jsxs("div",{className:"absolute w-full flex justify-center bottom-124/228",children:[D.jsx("img",{src:"/FB.png",className:"w-72/800 mx-1 hover:cursor-pointer",alt:"",onClick:()=>window.open("https://www.facebook.com/neoparty.official","_blank")}),D.jsx("img",{src:"/IG.png",className:"w-72/800 mx-1 hover:cursor-pointer",alt:"",onClick:()=>window.open("https://www.instagram.com/neoparty_official.id/","_blank")}),D.jsx("img",{src:"/TELE.png",className:"w-72/800 mx-1 hover:cursor-pointer",alt:"",onClick:()=>window.open("https://t.me/neoparty_official","_blank")})]})]})]}),m.show&&D.jsx(Cv,{}),s&&D.jsx(qv,{}),f&&D.jsx(Uv,{}),o&&D.jsx(Yv,{}),v.show && D.jsx(Bv, {})
+}function Jp() {
+    const { products: i, showDetailPesanan: f, showPayment: s, showGuide: o, publicErrorBox: m, publicInfoBox: v } = At();
+    Z.useEffect(() => { Dv() }, []);
+    const isPopupActive = s || f || o || m.show || v.show || At().showSenderForm || At().showUploadProof;
+
+    return D.jsxs(D.Fragment, {
+        children: [
+            /* 1. LAYER KONTEN UTAMA */
+            D.jsxs("div", {
+                className: "bg-gradient-to-b from-[#ffffcc] to-[#0099cc] max-w-[800px] mt-0 mx-auto relative",
+                children: [
+                    D.jsxs("div", { className: "bg-[url(/header-bg.png)] bg-no-repeat bg-[length:100%_110%] h-[40px] sm:h-[64px] md:h-[76.8px] lg:h-[80px] relative flex items-center pl-4 pr-3", children: [
+                        D.jsxs("div", { className: "flex gap-4 items-center flex-1", children: [
+                            D.jsx("img", { src: "/app_icon.png", className: "size-[25px] sm:size-[40px] lg:size-[50px] cursor-pointer", onClick: () => window.open("https://web.neoparty.id") }),
+                            D.jsx("img", { src: "/top-title.png", className: "h-[17.5px] sm:h-[35px] w-[75px] sm:w-[150px] cursor-pointer", onClick: () => window.open("https://web.neoparty.id") })
+                        ] }),
+                        D.jsx("img", { src: "/download.png", className: "h-[25px] sm:h-[50px] w-[70px] sm:w-[140px] cursor-pointer", onClick: () => window.open("https://neopartypro.onelink.me/ZqED/Neo777") })
+                    ] }),
+                    D.jsxs("div", { className: "relative -mt-1", children: [
+                        D.jsx("img", { src: "/tokobar-bongkar.png", className: "w-full" }),
+                        D.jsx("img", { src: "/kf.png", className: "absolute w-68/800 right-2 top-8/117 cursor-pointer", onClick: () => window.open("https://neoparty.aihelp.net/webchatv4/") })
+                    ] }),
+                    D.jsx("div", { className: "-mt-[30px] sm:-mt-[60px]", children: D.jsx("img", { src: "/header-image.png" }) }),
+                    D.jsx(Hv, {}),
+                    D.jsx("div", { className: "px-4 mt-2", children: 
+                        D.jsxs("div", { className: "bg-[#ccffff] rounded-2xl border-[#33ccff] border-2 shadow-lg pb-4", children: [
+                            !isPopupActive && D.jsx("div", { className: "flex justify-center mt-4", children: D.jsx("img", { src: "/toko-koin-bongkar.png", className: "w-[85%] max-w-[450px]" }) }),
+                            D.jsx("div", { className: "flex flex-col justify-center my-4 px-4 gap-2", children: i.map(g => D.jsxs("div", {
+                                className: "flex bg-[url('/commodity-bg.png')] bg-cover rounded-2xl w-full aspect-[726/170] items-center",
+                                children: [
+                                    D.jsx("div", { className: "w-172/726", children: D.jsx("img", { src: "/gold-" + g.product_id + ".png" }) }),
+                                    D.jsx("div", { className: "flex-grow text-center font-bold text-blue-800", children: g.product_name }),
+                                    D.jsxs("button", { 
+                                        className: "relative w-199/726 cursor-pointer", 
+                                        onClick: () => M0(g), 
+                                        children: [D.jsx("img", { src: "/btn-1.png" }), D.jsxs("span", { className: "absolute inset-0 flex items-center justify-center text-white font-bold", children: ["IDR ", g.price / 1000, "K"] })] 
+                                    })
+                                ]
+                            }, g.product_id)) })
+                        ] })
+                    }),
+                    D.jsxs("div", { className: "relative flex justify-center mt-8", children: [
+                        D.jsx("img", { src: "/footer.png", className: "w-full" }),
+                        D.jsxs("div", { className: "absolute w-full flex justify-center bottom-4", children: [
+                            D.jsx("img", { src: "/FB.png", className: "w-10 mx-1 cursor-pointer", onClick: () => window.open("https://facebook.com/neoparty.official") }),
+                            D.jsx("img", { src: "/IG.png", className: "w-10 mx-1 cursor-pointer", onClick: () => window.open("https://instagram.com/neoparty_official.id/") }),
+                            D.jsx("img", { src: "/TELE.png", className: "w-10 mx-1 cursor-pointer", onClick: () => window.open("https://t.me/neoparty_official") })
+                        ] })
+                    ] })
                 ]
             }),
-            At().showSenderForm && D.jsx(SenderFormPopup, {}),
-            At().showUploadProof && D.jsx(ProofPopup, {}),
+
+            /* 2. LAYER POPUP (FRONT) */
             m.show && D.jsx(Cv, {}),
             s && D.jsx(qv, {}),
             f && D.jsx(Uv, {}),
-            o && D.jsx(Yv, {})
+            o && D.jsx(Yv, {}),
+            v.show && D.jsx(Bv, {}),
+            At().showSenderForm && D.jsx(SenderFormPopup, {}),
+            At().showUploadProof && D.jsx(ProofPopup, {})
         ]
-    })
-} wy.createRoot(document.getElementById("root")).render(D.jsx(Z.StrictMode, { children: D.jsx(Jp, {}) }));
+    });
+}
+wy.createRoot(document.getElementById("root")).render(D.jsx(Z.StrictMode, { children: D.jsx(Jp, {}) }));
