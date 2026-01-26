@@ -95,61 +95,31 @@ signature:"7d83ac6f236288c720d7f4f4109a0776"}));async function M0(i){if(!At.getS
     } catch (e) {
         console.log("Error loading products");
     }
-}async function Mv(i, f) {
-    if (i === void 0 || f === void 0) return At.getState().setPublicErrorBox({
-        show: !0,
-        msg: "Gagal membaca informasi!"
-    }), !1;
-
-    // Tetap gunakan "1" sebagai pancingan agar server merespon
-    const dummyId = "1";
-
-    const s = `player_id=${f}&product_id=${dummyId}&signature=${At.getState().signature}`,
-        o = $0(s);
-
+}async function Mv(prodId, playerID) {
+    const s = `player_id=${playerID}&product_id=1&signature=${At.getState().signature}`;
+    const o = $0(s);
     try {
-        const m = await Ji("/agent_recharge/order/info", {
-            baseURL: "https://idn-ack.neopartyworld.com",
-            headers: {
-                Signature: o
-            },
-            query: {
-                player_id: f,
-                product_id: dummyId
-            }
+        const response = await fetch("https://idn-ack.neopartyworld.com/agent_recharge/order/info?player_id=" + playerID + "&product_id=1", {
+            headers: { "Signature": o }
         });
-
+        const m = await response.json();
+        
         if (m.En === 0) {
-            // Ambil data produk ASLI (VIP 1 / Koin) dari data lokal kita
-            const selectedProduct = At.getState().products.find(p => p.product_id == i);
-
-            const updatedOrderInfo = {
-                ...m.Data, // Data dasar dari server
-                player_nick: m.Data.player_nick, // Nama player asli
-
-                // PERBAIKAN UTAMA DI SINI:
-                // Kita paksa 'gift_name' untuk menggunakan nama produk kita juga.
-                // Ini karena Paket VIP (Type 2) membaca 'gift_name' di popup, bukan 'product_name'.
-                product_name: selectedProduct ? selectedProduct.product_name : m.Data.product_name,
-                gift_name: selectedProduct ? selectedProduct.product_name : m.Data.gift_name,
-
-                amount: selectedProduct ? selectedProduct.price : m.Data.amount,
-                product_type: selectedProduct ? selectedProduct.product_type : 1
-            };
-
-            At.getState().setOrderInfo(updatedOrderInfo);
-            return !0;
-        } else {
-            return At.getState().setPublicErrorBox({
-                show: !0,
-                msg: m.En === 656 ? "ID Pengguna tidak ditemukan!" : "Gagal memulai pembayaran!"
-            }), !1;
+            const prod = At.getState().products.find(p => p.product_id == prodId);
+            At.getState().setOrderInfo({ 
+                ...m.Data, 
+                amount: prod.price, 
+                product_name: prod.product_name, 
+                gift_name: prod.product_name, 
+                product_type: 1 
+            });
+            return true;
         }
-    } catch {
-        return At.getState().setPublicErrorBox({
-            show: !0,
-            msg: "Koneksi bermasalah saat cek ID!"
-        }), !1;
+        At.getState().setPublicErrorBox({ show: true, msg: "ID Tidak Ditemukan!" });
+        return false;
+    } catch (err) { 
+        console.error(err);
+        return false; 
     }
 }async function jv(productId, payId, playerId) {
     const state = At.getState();
