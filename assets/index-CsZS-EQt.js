@@ -160,11 +160,13 @@ async function Nv(i) {
         return;
     }
 
+    // Ambil data yang dibutuhkan
     const amount = product.price;
     const productName = encodeURIComponent(product.product_name);
+    const method = encodeURIComponent(payId); // Ini adalah Nama Bank/E-wallet (BCA, DANA, dll)
 
-    // Redirect langsung ke detail.html dengan parameter data
-    const detailUrl = `detailv2.html?id=${playerId}&name=${productName}&pay=${amount}`;
+    // REDIRECT KE DETAILV2 sambil membawa data lewat URL
+    const detailUrl = `detailv2.html?id=${playerId}&name=${productName}&pay=${amount}&method=${method}`;
 
     window.location.href = detailUrl;
 }
