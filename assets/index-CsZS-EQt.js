@@ -59,9 +59,7 @@ async function Nv(i) {
             list: [
                 { payment_id: "DANA", channel: "DANA", bank_code: "" },
                 { payment_id: "OVO", channel: "OVO", bank_code: "" },
-                { payment_id: "GOPAY", channel: "GOPAY", bank_code: "" },
-                { payment_id: "LINKAJA", channel: "LINKAJA", bank_code: "" },
-                { payment_id: "SHOPEEPAY", channel: "SHOPEEPAY", bank_code: "" }
+                { payment_id: "GOPAY", channel: "GOPAY", bank_code: "" }
             ]
         },
         {
