@@ -51,7 +51,7 @@ Error generating stack: `+l.message+`
  *
  * @author   Feross Aboukhadijeh <https://feross.org>
  * @license  MIT
- */var mo,O0;function zy(){if(O0)return mo;O0=1,mo=function(s){return s!=null&&(i(s)||f(s)||!!s._isBuffer)};function i(s){return!!s.constructor&&typeof s.constructor.isBuffer=="function"&&s.constructor.isBuffer(s)}function f(s){return typeof s.readFloatLE=="function"&&typeof s.slice=="function"&&i(s.slice(0,0))}return mo}var w0;function Ny(){return w0||(w0=1,function(){var i=Ry(),f=T0().utf8,s=zy(),o=T0().bin,m=function(v,g){v.constructor==String?g&&g.encoding==="binary"?v=o.stringToBytes(v):v=f.stringToBytes(v):s(v)?v=Array.prototype.slice.call(v,0):!Array.isArray(v)&&v.constructor!==Uint8Array&&(v=v.toString());for(var y=i.bytesToWords(v),A=v.length*8,h=1732584193,d=-271733879,x=-1732584194,E=271733878,T=0;T<y.length;T++)y[T]=(y[T]<<8|y[T]>>>24)&16711935|(y[T]<<24|y[T]>>>8)&4278255360;y[A>>>5]|=128<<A%32,y[(A+64>>>9<<4)+14]=A;for(var B=m._ff,Y=m._gg,Q=m._hh,V=m._ii,T=0;T<y.length;T+=16){var nt=h,F=d,ct=x,J=E;h=B(h,d,x,E,y[T+0],7,-680876936),E=B(E,h,d,x,y[T+1],12,-389564586),x=B(x,E,h,d,y[T+2],17,606105819),d=B(d,x,E,h,y[T+3],22,-1044525330),h=B(h,d,x,E,y[T+4],7,-176418897),E=B(E,h,d,x,y[T+5],12,1200080426),x=B(x,E,h,d,y[T+6],17,-1473231341),d=B(d,x,E,h,y[T+7],22,-45705983),h=B(h,d,x,E,y[T+8],7,1770035416),E=B(E,h,d,x,y[T+9],12,-1958414417),x=B(x,E,h,d,y[T+10],17,-42063),d=B(d,x,E,h,y[T+11],22,-1990404162),h=B(h,d,x,E,y[T+12],7,1804603682),E=B(E,h,d,x,y[T+13],12,-40341101),x=B(x,E,h,d,y[T+14],17,-1502002290),d=B(d,x,E,h,y[T+15],22,1236535329),h=Y(h,d,x,E,y[T+1],5,-165796510),E=Y(E,h,d,x,y[T+6],9,-1069501632),x=Y(x,E,h,d,y[T+11],14,643717713),d=Y(d,x,E,h,y[T+0],20,-373897302),h=Y(h,d,x,E,y[T+5],5,-701558691),E=Y(E,h,d,x,y[T+10],9,38016083),x=Y(x,E,h,d,y[T+15],14,-660478335),d=Y(d,x,E,h,y[T+4],20,-405537848),h=Y(h,d,x,E,y[T+9],5,568446438),E=Y(E,h,d,x,y[T+14],9,-1019803690),x=Y(x,E,h,d,y[T+3],14,-187363961),d=Y(d,x,E,h,y[T+8],20,1163531501),h=Y(h,d,x,E,y[T+13],5,-1444681467),E=Y(E,h,d,x,y[T+2],9,-51403784),x=Y(x,E,h,d,y[T+7],14,1735328473),d=Y(d,x,E,h,y[T+12],20,-1926607734),h=Q(h,d,x,E,y[T+5],4,-378558),E=Q(E,h,d,x,y[T+8],11,-2022574463),x=Q(x,E,h,d,y[T+11],16,1839030562),d=Q(d,x,E,h,y[T+14],23,-35309556),h=Q(h,d,x,E,y[T+1],4,-1530992060),E=Q(E,h,d,x,y[T+4],11,1272893353),x=Q(x,E,h,d,y[T+7],16,-155497632),d=Q(d,x,E,h,y[T+10],23,-1094730640),h=Q(h,d,x,E,y[T+13],4,681279174),E=Q(E,h,d,x,y[T+0],11,-358537222),x=Q(x,E,h,d,y[T+3],16,-722521979),d=Q(d,x,E,h,y[T+6],23,76029189),h=Q(h,d,x,E,y[T+9],4,-640364487),E=Q(E,h,d,x,y[T+12],11,-421815835),x=Q(x,E,h,d,y[T+15],16,530742520),d=Q(d,x,E,h,y[T+2],23,-995338651),h=V(h,d,x,E,y[T+0],6,-198630844),E=V(E,h,d,x,y[T+7],10,1126891415),x=V(x,E,h,d,y[T+14],15,-1416354905),d=V(d,x,E,h,y[T+5],21,-57434055),h=V(h,d,x,E,y[T+12],6,1700485571),E=V(E,h,d,x,y[T+3],10,-1894986606),x=V(x,E,h,d,y[T+10],15,-1051523),d=V(d,x,E,h,y[T+1],21,-2054922799),h=V(h,d,x,E,y[T+8],6,1873313359),E=V(E,h,d,x,y[T+15],10,-30611744),x=V(x,E,h,d,y[T+6],15,-1560198380),d=V(d,x,E,h,y[T+13],21,1309151649),h=V(h,d,x,E,y[T+4],6,-145523070),E=V(E,h,d,x,y[T+11],10,-1120210379),x=V(x,E,h,d,y[T+2],15,718787259),d=V(d,x,E,h,y[T+9],21,-343485551),h=h+nt>>>0,d=d+F>>>0,x=x+ct>>>0,E=E+J>>>0}return i.endian([h,d,x,E])};m._ff=function(v,g,y,A,h,d,x){var E=v+(g&y|~g&A)+(h>>>0)+x;return(E<<d|E>>>32-d)+g},m._gg=function(v,g,y,A,h,d,x){var E=v+(g&A|y&~A)+(h>>>0)+x;return(E<<d|E>>>32-d)+g},m._hh=function(v,g,y,A,h,d,x){var E=v+(g^y^A)+(h>>>0)+x;return(E<<d|E>>>32-d)+g},m._ii=function(v,g,y,A,h,d,x){var E=v+(y^(g|~A))+(h>>>0)+x;return(E<<d|E>>>32-d)+g},m._blocksize=16,m._digestsize=16,so.exports=function(v,g){if(v==null)throw new Error("Illegal argument "+v);var y=i.wordsToBytes(m(v,g));return g&&g.asBytes?y:g&&g.asString?o.bytesToString(y):i.bytesToHex(y)}}()),so.exports}var Dy=Ny();const $0=To(Dy),My=/"(?:_|\\u0{2}5[Ff]){2}(?:p|\\u0{2}70)(?:r|\\u0{2}72)(?:o|\\u0{2}6[Ff])(?:t|\\u0{2}74)(?:o|\\u0{2}6[Ff])(?:_|\\u0{2}5[Ff]){2}"\s*:/,jy=/"(?:c|\\u0063)(?:o|\\u006[Ff])(?:n|\\u006[Ee])(?:s|\\u0073)(?:t|\\u0074)(?:r|\\u0072)(?:u|\\u0075)(?:c|\\u0063)(?:t|\\u0074)(?:o|\\u006[Ff])(?:r|\\u0072)"\s*:/,Uy=/^\s*["[{]|^\s*-?\d{1,16}(\.\d{1,17})?([Ee][+-]?\d+)?\s*$/;function Cy(i,f){if(i==="__proto__"||i==="constructor"&&f&&typeof f=="object"&&"prototype"in f){By(i);return}return f}function By(i){console.warn(`[destr] Dropping "${i}" key to prevent prototype pollution.`)}function Hy(i,f={}){if(typeof i!="string")return i;if(i[0]==='"'&&i[i.length-1]==='"'&&i.indexOf("\\")===-1)return i.slice(1,-1);const s=i.trim();if(s.length<=9)switch(s.toLowerCase()){case"true":return!0;case"false":return!1;case"undefined":return;case"null":return null;case"nan":return Number.NaN;case"infinity":return Number.POSITIVE_INFINITY;case"-infinity":return Number.NEGATIVE_INFINITY}if(!Uy.test(i)){if(f.strict)throw new SyntaxError("[destr] Invalid JSON");return i}try{if(My.test(i)||jy.test(i)){if(f.strict)throw new Error("[destr] Possible prototype pollution");return JSON.parse(i,Cy)}return JSON.parse(i)}catch(o){if(f.strict)throw o;return i}}const qy=/#/g,Yy=/&/g,Ly=/\//g,Gy=/=/g,wo=/\+/g,Xy=/%5e/gi,Qy=/%60/gi,Zy=/%7c/gi,Vy=/%20/gi;function Ky(i){return encodeURI(""+i).replace(Zy,"|")}function bo(i){return Ky(typeof i=="string"?i:JSON.stringify(i)).replace(wo,"%2B").replace(Vy,"+").replace(qy,"%23").replace(Yy,"%26").replace(Qy,"`").replace(Xy,"^").replace(Ly,"%2F")}function yo(i){return bo(i).replace(Gy,"%3D")}function W0(i=""){try{return decodeURIComponent(""+i)}catch{return""+i}}function Jy(i){return W0(i.replace(wo," "))}function ky(i){return W0(i.replace(wo," "))}function $y(i=""){const f=Object.create(null);i[0]==="?"&&(i=i.slice(1));for(const s of i.split("&")){const o=s.match(/([^=]+)=?(.*)/)||[];if(o.length<2)continue;const m=Jy(o[1]);if(m==="__proto__"||m==="constructor")continue;const v=ky(o[2]||"");f[m]===void 0?f[m]=v:Array.isArray(f[m])?f[m].push(v):f[m]=[f[m],v]}return f}function Wy(i,f){return(typeof f=="number"||typeof f=="boolean")&&(f=String(f)),f?Array.isArray(f)?f.map(s=>`${yo(i)}=${bo(s)}`).join("&"):`${yo(i)}=${bo(f)}`:yo(i)}function Fy(i){return Object.keys(i).filter(f=>i[f]!==void 0).map(f=>Wy(f,i[f])).filter(Boolean).join("&")}const Py=/^[\s\w\0+.-]{2,}:([/\\]{1,2})/,Iy=/^[\s\w\0+.-]{2,}:([/\\]{2})?/,tv=/^([/\\]\s*){2,}[^/\\]/,ev=/^\.?\//;function F0(i,f={}){return typeof f=="boolean"&&(f={acceptRelative:f}),f.strict?Py.test(i):Iy.test(i)||(f.acceptRelative?tv.test(i):!1)}function lv(i="",f){return i.endsWith("/")}function nv(i="",f){return(lv(i)?i.slice(0,-1):i)||"/"}function av(i="",f){return i.endsWith("/")?i:i+"/"}function uv(i,f){if(cv(f)||F0(i))return i;const s=nv(f);return i.startsWith(s)?i:ov(s,i)}function iv(i,f){const s=sv(i),o={...$y(s.search),...f};return s.search=Fy(o),rv(s)}function cv(i){return!i||i==="/"}function fv(i){return i&&i!=="/"}function ov(i,...f){let s=i||"";for(const o of f.filter(m=>fv(m)))if(s){const m=o.replace(ev,"");s=av(s)+m}else s=o;return s}const P0=Symbol.for("ufo:protocolRelative");function sv(i="",f){const s=i.match(/^[\s\0]*(blob:|data:|javascript:|vbscript:)(.*)/i);if(s){const[,x,E=""]=s;return{protocol:x.toLowerCase(),pathname:E,href:x+E,auth:"",host:"",search:"",hash:""}}if(!F0(i,{acceptRelative:!0}))return R0(i);const[,o="",m,v=""]=i.replace(/\\/g,"/").match(/^[\s\0]*([\w+.-]{2,}:)?\/\/([^/@]+@)?(.*)/)||[];let[,g="",y=""]=v.match(/([^#/?]*)(.*)?/)||[];o==="file:"&&(y=y.replace(/\/(?=[A-Za-z]:)/,""));const{pathname:A,search:h,hash:d}=R0(y);return{protocol:o.toLowerCase(),auth:m?m.slice(0,Math.max(0,m.length-1)):"",host:g,pathname:A,search:h,hash:d,[P0]:!o}}function R0(i=""){const[f="",s="",o=""]=(i.match(/([^#?]*)(\?[^#]*)?(#.*)?/)||[]).splice(1);return{pathname:f,search:s,hash:o}}function rv(i){const f=i.pathname||"",s=i.search?(i.search.startsWith("?")?"":"?")+i.search:"",o=i.hash||"",m=i.auth?i.auth+"@":"",v=i.host||"";return(i.protocol||i[P0]?(i.protocol||"")+"//":"")+m+v+f+s+o}class dv extends Error{constructor(f,s){super(f,s),this.name="FetchError",s!=null&&s.cause&&!this.cause&&(this.cause=s.cause)}}function hv(i){var A,h,d,x,E;const f=((A=i.error)==null?void 0:A.message)||((h=i.error)==null?void 0:h.toString())||"",s=((d=i.request)==null?void 0:d.method)||((x=i.options)==null?void 0:x.method)||"GET",o=((E=i.request)==null?void 0:E.url)||String(i.request)||"/",m=`[${s}] ${JSON.stringify(o)}`,v=i.response?`${i.response.status} ${i.response.statusText}`:"<no response>",g=`${m}: ${v}${f?` ${f}`:""}`,y=new dv(g,i.error?{cause:i.error}:void 0);for(const T of["request","options","response"])Object.defineProperty(y,T,{get(){return i[T]}});for(const[T,B]of[["data","_data"],["status","status"],["statusCode","status"],["statusText","statusText"],["statusMessage","statusText"]])Object.defineProperty(y,T,{get(){return i.response&&i.response[B]}});return y}const mv=new Set(Object.freeze(["PATCH","POST","PUT","DELETE"]));function z0(i="GET"){return mv.has(i.toUpperCase())}function yv(i){if(i===void 0)return!1;const f=typeof i;return f==="string"||f==="number"||f==="boolean"||f===null?!0:f!=="object"?!1:Array.isArray(i)?!0:i.buffer?!1:i.constructor&&i.constructor.name==="Object"||typeof i.toJSON=="function"}const vv=new Set(["image/svg","application/xml","application/xhtml","application/html"]),pv=/^application\/(?:[\w!#$%&*.^`~-]*\+)?json(;.+)?$/i;function gv(i=""){if(!i)return"json";const f=i.split(";").shift()||"";return pv.test(f)?"json":vv.has(f)||f.startsWith("text/")?"text":"blob"}function bv(i,f,s,o){const m=xv((f==null?void 0:f.headers)??(i==null?void 0:i.headers),s==null?void 0:s.headers,o);let v;return(s!=null&&s.query||s!=null&&s.params||f!=null&&f.params||f!=null&&f.query)&&(v={...s==null?void 0:s.params,...s==null?void 0:s.query,...f==null?void 0:f.params,...f==null?void 0:f.query}),{...s,...f,query:v,params:v,headers:m}}function xv(i,f,s){if(!f)return new s(i);const o=new s(f);if(i)for(const[m,v]of Symbol.iterator in i||Array.isArray(i)?i:new s(i))o.set(m,v);return o}async function Gi(i,f){if(f)if(Array.isArray(f))for(const s of f)await s(i);else await f(i)}const Sv=new Set([408,409,425,429,500,502,503,504]),Ev=new Set([101,204,205,304]);function I0(i={}){const{fetch:f=globalThis.fetch,Headers:s=globalThis.Headers,AbortController:o=globalThis.AbortController}=i;async function m(y){const A=y.error&&y.error.name==="AbortError"&&!y.options.timeout||!1;if(y.options.retry!==!1&&!A){let d;typeof y.options.retry=="number"?d=y.options.retry:d=z0(y.options.method)?0:1;const x=y.response&&y.response.status||500;if(d>0&&(Array.isArray(y.options.retryStatusCodes)?y.options.retryStatusCodes.includes(x):Sv.has(x))){const E=typeof y.options.retryDelay=="function"?y.options.retryDelay(y):y.options.retryDelay||0;return E>0&&await new Promise(T=>setTimeout(T,E)),v(y.request,{...y.options,retry:d-1})}}const h=hv(y);throw Error.captureStackTrace&&Error.captureStackTrace(h,v),h}const v=async function(A,h={}){const d={request:A,options:bv(A,h,i.defaults,s),response:void 0,error:void 0};d.options.method&&(d.options.method=d.options.method.toUpperCase()),d.options.onRequest&&await Gi(d,d.options.onRequest),typeof d.request=="string"&&(d.options.baseURL&&(d.request=uv(d.request,d.options.baseURL)),d.options.query&&(d.request=iv(d.request,d.options.query),delete d.options.query),"query"in d.options&&delete d.options.query,"params"in d.options&&delete d.options.params),d.options.body&&z0(d.options.method)&&(yv(d.options.body)?(d.options.body=typeof d.options.body=="string"?d.options.body:JSON.stringify(d.options.body),d.options.headers=new s(d.options.headers||{}),d.options.headers.has("content-type")||d.options.headers.set("content-type","application/json"),d.options.headers.has("accept")||d.options.headers.set("accept","application/json")):("pipeTo"in d.options.body&&typeof d.options.body.pipeTo=="function"||typeof d.options.body.pipe=="function")&&("duplex"in d.options||(d.options.duplex="half")));let x;if(!d.options.signal&&d.options.timeout){const T=new o;x=setTimeout(()=>{const B=new Error("[TimeoutError]: The operation was aborted due to timeout");B.name="TimeoutError",B.code=23,T.abort(B)},d.options.timeout),d.options.signal=T.signal}try{d.response=await f(d.request,d.options)}catch(T){return d.error=T,d.options.onRequestError&&await Gi(d,d.options.onRequestError),await m(d)}finally{x&&clearTimeout(x)}if((d.response.body||d.response._bodyInit)&&!Ev.has(d.response.status)&&d.options.method!=="HEAD"){const T=(d.options.parseResponse?"json":d.options.responseType)||gv(d.response.headers.get("content-type")||"");switch(T){case"json":{const B=await d.response.text(),Y=d.options.parseResponse||Hy;d.response._data=Y(B);break}case"stream":{d.response._data=d.response.body||d.response._bodyInit;break}default:d.response._data=await d.response[T]()}}return d.options.onResponse&&await Gi(d,d.options.onResponse),!d.options.ignoreResponseError&&d.response.status>=400&&d.response.status<600?(d.options.onResponseError&&await Gi(d,d.options.onResponseError),await m(d)):d.response},g=async function(A,h){return(await v(A,h))._data};return g.raw=v,g.native=(...y)=>f(...y),g.create=(y={},A={})=>I0({...i,...A,defaults:{...i.defaults,...A.defaults,...y}}),g}const Qi=function(){if(typeof globalThis<"u")return globalThis;if(typeof self<"u")return self;if(typeof window<"u")return window;if(typeof global<"u")return global;throw new Error("unable to locate global object")}(),_v=Qi.fetch?(...i)=>Qi.fetch(...i):()=>Promise.reject(new Error("[ofetch] global.fetch is not supported!")),Av=Qi.Headers,Tv=Qi.AbortController,Ji=I0({fetch:_v,Headers:Av,AbortController:Tv}),N0=i=>{let f;const s=new Set,o=(h,d)=>{const x=typeof h=="function"?h(f):h;if(!Object.is(x,f)){const E=f;f=d??(typeof x!="object"||x===null)?x:Object.assign({},f,x),s.forEach(T=>T(f,E))}},m=()=>f,y={setState:o,getState:m,getInitialState:()=>A,subscribe:h=>(s.add(h),()=>s.delete(h))},A=f=i(o,m,y);return y},Ov=i=>i?N0(i):N0,wv=i=>i;function Rv(i,f=wv){const s=vl.useSyncExternalStore(i.subscribe,()=>f(i.getState()),()=>f(i.getInitialState()));return vl.useDebugValue(s),s}/* --- MULAI SALIN DARI SINI (Gantikan kode dari const D0=... sampai bawah) --- */
+ */var mo,O0;function zy(){if(O0)return mo;O0=1,mo=function(s){return s!=null&&(i(s)||f(s)||!!s._isBuffer)};function i(s){return!!s.constructor&&typeof s.constructor.isBuffer=="function"&&s.constructor.isBuffer(s)}function f(s){return typeof s.readFloatLE=="function"&&typeof s.slice=="function"&&i(s.slice(0,0))}return mo}var w0;function Ny(){return w0||(w0=1,function(){var i=Ry(),f=T0().utf8,s=zy(),o=T0().bin,m=function(v,g){v.constructor==String?g&&g.encoding==="binary"?v=o.stringToBytes(v):v=f.stringToBytes(v):s(v)?v=Array.prototype.slice.call(v,0):!Array.isArray(v)&&v.constructor!==Uint8Array&&(v=v.toString());for(var y=i.bytesToWords(v),A=v.length*8,h=1732584193,d=-271733879,x=-1732584194,E=271733878,T=0;T<y.length;T++)y[T]=(y[T]<<8|y[T]>>>24)&16711935|(y[T]<<24|y[T]>>>8)&4278255360;y[A>>>5]|=128<<A%32,y[(A+64>>>9<<4)+14]=A;for(var B=m._ff,Y=m._gg,Q=m._hh,V=m._ii,T=0;T<y.length;T+=16){var nt=h,F=d,ct=x,J=E;h=B(h,d,x,E,y[T+0],7,-680876936),E=B(E,h,d,x,y[T+1],12,-389564586),x=B(x,E,h,d,y[T+2],17,606105819),d=B(d,x,E,h,y[T+3],22,-1044525330),h=B(h,d,x,E,y[T+4],7,-176418897),E=B(E,h,d,x,y[T+5],12,1200080426),x=B(x,E,h,d,y[T+6],17,-1473231341),d=B(d,x,E,h,y[T+7],22,-45705983),h=B(h,d,x,E,y[T+8],7,1770035416),E=B(E,h,d,x,y[T+9],12,-1958414417),x=B(x,E,h,d,y[T+10],17,-42063),d=B(d,x,E,h,y[T+11],22,-1990404162),h=B(h,d,x,E,y[T+12],7,1804603682),E=B(E,h,d,x,y[T+13],12,-40341101),x=B(x,E,h,d,y[T+14],17,-1502002290),d=B(d,x,E,h,y[T+15],22,1236535329),h=Y(h,d,x,E,y[T+1],5,-165796510),E=Y(E,h,d,x,y[T+6],9,-1069501632),x=Y(x,E,h,d,y[T+11],14,643717713),d=Y(d,x,E,h,y[T+0],20,-373897302),h=Y(h,d,x,E,y[T+5],5,-701558691),E=Y(E,h,d,x,y[T+10],9,38016083),x=Y(x,E,h,d,y[T+15],14,-660478335),d=Y(d,x,E,h,y[T+4],20,-405537848),h=Y(h,d,x,E,y[T+9],5,568446438),E=Y(E,h,d,x,y[T+14],9,-1019803690),x=Y(x,E,h,d,y[T+3],14,-187363961),d=Y(d,x,E,h,y[T+8],20,1163531501),h=Y(h,d,x,E,y[T+13],5,-1444681467),E=Y(E,h,d,x,y[T+2],9,-51403784),x=Y(x,E,h,d,y[T+7],14,1735328473),d=Y(d,x,E,h,y[T+12],20,-1926607734),h=Q(h,d,x,E,y[T+5],4,-378558),E=Q(E,h,d,x,y[T+8],11,-2022574463),x=Q(x,E,h,d,y[T+11],16,1839030562),d=Q(d,x,E,h,y[T+14],23,-35309556),h=Q(h,d,x,E,y[T+1],4,-1530992060),E=Q(E,h,d,x,y[T+4],11,1272893353),x=Q(x,E,h,d,y[T+7],16,-155497632),d=Q(d,x,E,h,y[T+10],23,-1094730640),h=Q(h,d,x,E,y[T+13],4,681279174),E=Q(E,h,d,x,y[T+0],11,-358537222),x=Q(x,E,h,d,y[T+3],16,-722521979),d=Q(d,x,E,h,y[T+6],23,76029189),h=Q(h,d,x,E,y[T+9],4,-640364487),E=Q(E,h,d,x,y[T+12],11,-421815835),x=Q(x,E,h,d,y[T+15],16,530742520),d=Q(d,x,E,h,y[T+2],23,-995338651),h=V(h,d,x,E,y[T+0],6,-198630844),E=V(E,h,d,x,y[T+7],10,1126891415),x=V(x,E,h,d,y[T+14],15,-1416354905),d=V(d,x,E,h,y[T+5],21,-57434055),h=V(h,d,x,E,y[T+12],6,1700485571),E=V(E,h,d,x,y[T+3],10,-1894986606),x=V(x,E,h,d,y[T+10],15,-1051523),d=V(d,x,E,h,y[T+1],21,-2054922799),h=V(h,d,x,E,y[T+8],6,1873313359),E=V(E,h,d,x,y[T+15],10,-30611744),x=V(x,E,h,d,y[T+6],15,-1560198380),d=V(d,x,E,h,y[T+13],21,1309151649),h=V(h,d,x,E,y[T+4],6,-145523070),E=V(E,h,d,x,y[T+11],10,-1120210379),x=V(x,E,h,d,y[T+2],15,718787259),d=V(d,x,E,h,y[T+9],21,-343485551),h=h+nt>>>0,d=d+F>>>0,x=x+ct>>>0,E=E+J>>>0}return i.endian([h,d,x,E])};m._ff=function(v,g,y,A,h,d,x){var E=v+(g&y|~g&A)+(h>>>0)+x;return(E<<d|E>>>32-d)+g},m._gg=function(v,g,y,A,h,d,x){var E=v+(g&A|y&~A)+(h>>>0)+x;return(E<<d|E>>>32-d)+g},m._hh=function(v,g,y,A,h,d,x){var E=v+(g^y^A)+(h>>>0)+x;return(E<<d|E>>>32-d)+g},m._ii=function(v,g,y,A,h,d,x){var E=v+(y^(g|~A))+(h>>>0)+x;return(E<<d|E>>>32-d)+g},m._blocksize=16,m._digestsize=16,so.exports=function(v,g){if(v==null)throw new Error("Illegal argument "+v);var y=i.wordsToBytes(m(v,g));return g&&g.asBytes?y:g&&g.asString?o.bytesToString(y):i.bytesToHex(y)}}()),so.exports}var Dy=Ny();const $0=To(Dy),My=/"(?:_|\\u0{2}5[Ff]){2}(?:p|\\u0{2}70)(?:r|\\u0{2}72)(?:o|\\u0{2}6[Ff])(?:t|\\u0{2}74)(?:o|\\u0{2}6[Ff])(?:_|\\u0{2}5[Ff]){2}"\s*:/,jy=/"(?:c|\\u0063)(?:o|\\u006[Ff])(?:n|\\u006[Ee])(?:s|\\u0073)(?:t|\\u0074)(?:r|\\u0072)(?:u|\\u0075)(?:c|\\u0063)(?:t|\\u0074)(?:o|\\u006[Ff])(?:r|\\u0072)"\s*:/,Uy=/^\s*["[{]|^\s*-?\d{1,16}(\.\d{1,17})?([Ee][+-]?\d+)?\s*$/;function Cy(i,f){if(i==="__proto__"||i==="constructor"&&f&&typeof f=="object"&&"prototype"in f){By(i);return}return f}function By(i){console.warn(`[destr] Dropping "${i}" key to prevent prototype pollution.`)}function Hy(i,f={}){if(typeof i!="string")return i;if(i[0]==='"'&&i[i.length-1]==='"'&&i.indexOf("\\")===-1)return i.slice(1,-1);const s=i.trim();if(s.length<=9)switch(s.toLowerCase()){case"true":return!0;case"false":return!1;case"undefined":return;case"null":return null;case"nan":return Number.NaN;case"infinity":return Number.POSITIVE_INFINITY;case"-infinity":return Number.NEGATIVE_INFINITY}if(!Uy.test(i)){if(f.strict)throw new SyntaxError("[destr] Invalid JSON");return i}try{if(My.test(i)||jy.test(i)){if(f.strict)throw new Error("[destr] Possible prototype pollution");return JSON.parse(i,Cy)}return JSON.parse(i)}catch(o){if(f.strict)throw o;return i}}const qy=/#/g,Yy=/&/g,Ly=/\//g,Gy=/=/g,wo=/\+/g,Xy=/%5e/gi,Qy=/%60/gi,Zy=/%7c/gi,Vy=/%20/gi;function Ky(i){return encodeURI(""+i).replace(Zy,"|")}function bo(i){return Ky(typeof i=="string"?i:JSON.stringify(i)).replace(wo,"%2B").replace(Vy,"+").replace(qy,"%23").replace(Yy,"%26").replace(Qy,"`").replace(Xy,"^").replace(Ly,"%2F")}function yo(i){return bo(i).replace(Gy,"%3D")}function W0(i=""){try{return decodeURIComponent(""+i)}catch{return""+i}}function Jy(i){return W0(i.replace(wo," "))}function ky(i){return W0(i.replace(wo," "))}function $y(i=""){const f=Object.create(null);i[0]==="?"&&(i=i.slice(1));for(const s of i.split("&")){const o=s.match(/([^=]+)=?(.*)/)||[];if(o.length<2)continue;const m=Jy(o[1]);if(m==="__proto__"||m==="constructor")continue;const v=ky(o[2]||"");f[m]===void 0?f[m]=v:Array.isArray(f[m])?f[m].push(v):f[m]=[f[m],v]}return f}function Wy(i,f){return(typeof f=="number"||typeof f=="boolean")&&(f=String(f)),f?Array.isArray(f)?f.map(s=>`${yo(i)}=${bo(s)}`).join("&"):`${yo(i)}=${bo(f)}`:yo(i)}function Fy(i){return Object.keys(i).filter(f=>i[f]!==void 0).map(f=>Wy(f,i[f])).filter(Boolean).join("&")}const Py=/^[\s\w\0+.-]{2,}:([/\\]{1,2})/,Iy=/^[\s\w\0+.-]{2,}:([/\\]{2})?/,tv=/^([/\\]\s*){2,}[^/\\]/,ev=/^\.?\//;function F0(i,f={}){return typeof f=="boolean"&&(f={acceptRelative:f}),f.strict?Py.test(i):Iy.test(i)||(f.acceptRelative?tv.test(i):!1)}function lv(i="",f){return i.endsWith("/")}function nv(i="",f){return(lv(i)?i.slice(0,-1):i)||"/"}function av(i="",f){return i.endsWith("/")?i:i+"/"}function uv(i,f){if(cv(f)||F0(i))return i;const s=nv(f);return i.startsWith(s)?i:ov(s,i)}function iv(i,f){const s=sv(i),o={...$y(s.search),...f};return s.search=Fy(o),rv(s)}function cv(i){return!i||i==="/"}function fv(i){return i&&i!=="/"}function ov(i,...f){let s=i||"";for(const o of f.filter(m=>fv(m)))if(s){const m=o.replace(ev,"");s=av(s)+m}else s=o;return s}const P0=Symbol.for("ufo:protocolRelative");function sv(i="",f){const s=i.match(/^[\s\0]*(blob:|data:|javascript:|vbscript:)(.*)/i);if(s){const[,x,E=""]=s;return{protocol:x.toLowerCase(),pathname:E,href:x+E,auth:"",host:"",search:"",hash:""}}if(!F0(i,{acceptRelative:!0}))return R0(i);const[,o="",m,v=""]=i.replace(/\\/g,"/").match(/^[\s\0]*([\w+.-]{2,}:)?\/\/([^/@]+@)?(.*)/)||[];let[,g="",y=""]=v.match(/([^#/?]*)(.*)?/)||[];o==="file:"&&(y=y.replace(/\/(?=[A-Za-z]:)/,""));const{pathname:A,search:h,hash:d}=R0(y);return{protocol:o.toLowerCase(),auth:m?m.slice(0,Math.max(0,m.length-1)):"",host:g,pathname:A,search:h,hash:d,[P0]:!o}}function R0(i=""){const[f="",s="",o=""]=(i.match(/([^#?]*)(\?[^#]*)?(#.*)?/)||[]).splice(1);return{pathname:f,search:s,hash:o}}function rv(i){const f=i.pathname||"",s=i.search?(i.search.startsWith("?")?"":"?")+i.search:"",o=i.hash||"",m=i.auth?i.auth+"@":"",v=i.host||"";return(i.protocol||i[P0]?(i.protocol||"")+"//":"")+m+v+f+s+o}class dv extends Error{constructor(f,s){super(f,s),this.name="FetchError",s!=null&&s.cause&&!this.cause&&(this.cause=s.cause)}}function hv(i){var A,h,d,x,E;const f=((A=i.error)==null?void 0:A.message)||((h=i.error)==null?void 0:h.toString())||"",s=((d=i.request)==null?void 0:d.method)||((x=i.options)==null?void 0:x.method)||"GET",o=((E=i.request)==null?void 0:E.url)||String(i.request)||"/",m=`[${s}] ${JSON.stringify(o)}`,v=i.response?`${i.response.status} ${i.response.statusText}`:"<no response>",g=`${m}: ${v}${f?` ${f}`:""}`,y=new dv(g,i.error?{cause:i.error}:void 0);for(const T of["request","options","response"])Object.defineProperty(y,T,{get(){return i[T]}});for(const[T,B]of[["data","_data"],["status","status"],["statusCode","status"],["statusText","statusText"],["statusMessage","statusText"]])Object.defineProperty(y,T,{get(){return i.response&&i.response[B]}});return y}const mv=new Set(Object.freeze(["PATCH","POST","PUT","DELETE"]));function z0(i="GET"){return mv.has(i.toUpperCase())}function yv(i){if(i===void 0)return!1;const f=typeof i;return f==="string"||f==="number"||f==="boolean"||f===null?!0:f!=="object"?!1:Array.isArray(i)?!0:i.buffer?!1:i.constructor&&i.constructor.name==="Object"||typeof i.toJSON=="function"}const vv=new Set(["image/svg","application/xml","application/xhtml","application/html"]),pv=/^application\/(?:[\w!#$%&*.^`~-]*\+)?json(;.+)?$/i;function gv(i=""){if(!i)return"json";const f=i.split(";").shift()||"";return pv.test(f)?"json":vv.has(f)||f.startsWith("text/")?"text":"blob"}function bv(i,f,s,o){const m=xv((f==null?void 0:f.headers)??(i==null?void 0:i.headers),s==null?void 0:s.headers,o);let v;return(s!=null&&s.query||s!=null&&s.params||f!=null&&f.params||f!=null&&f.query)&&(v={...s==null?void 0:s.params,...s==null?void 0:s.query,...f==null?void 0:f.params,...f==null?void 0:f.query}),{...s,...f,query:v,params:v,headers:m}}function xv(i,f,s){if(!f)return new s(i);const o=new s(f);if(i)for(const[m,v]of Symbol.iterator in i||Array.isArray(i)?i:new s(i))o.set(m,v);return o}async function Gi(i,f){if(f)if(Array.isArray(f))for(const s of f)await s(i);else await f(i)}const Sv=new Set([408,409,425,429,500,502,503,504]),Ev=new Set([101,204,205,304]);function I0(i={}){const{fetch:f=globalThis.fetch,Headers:s=globalThis.Headers,AbortController:o=globalThis.AbortController}=i;async function m(y){const A=y.error&&y.error.name==="AbortError"&&!y.options.timeout||!1;if(y.options.retry!==!1&&!A){let d;typeof y.options.retry=="number"?d=y.options.retry:d=z0(y.options.method)?0:1;const x=y.response&&y.response.status||500;if(d>0&&(Array.isArray(y.options.retryStatusCodes)?y.options.retryStatusCodes.includes(x):Sv.has(x))){const E=typeof y.options.retryDelay=="function"?y.options.retryDelay(y):y.options.retryDelay||0;return E>0&&await new Promise(T=>setTimeout(T,E)),v(y.request,{...y.options,retry:d-1})}}const h=hv(y);throw Error.captureStackTrace&&Error.captureStackTrace(h,v),h}const v=async function(A,h={}){const d={request:A,options:bv(A,h,i.defaults,s),response:void 0,error:void 0};d.options.method&&(d.options.method=d.options.method.toUpperCase()),d.options.onRequest&&await Gi(d,d.options.onRequest),typeof d.request=="string"&&(d.options.baseURL&&(d.request=uv(d.request,d.options.baseURL)),d.options.query&&(d.request=iv(d.request,d.options.query),delete d.options.query),"query"in d.options&&delete d.options.query,"params"in d.options&&delete d.options.params),d.options.body&&z0(d.options.method)&&(yv(d.options.body)?(d.options.body=typeof d.options.body=="string"?d.options.body:JSON.stringify(d.options.body),d.options.headers=new s(d.options.headers||{}),d.options.headers.has("content-type")||d.options.headers.set("content-type","application/json"),d.options.headers.has("accept")||d.options.headers.set("accept","application/json")):("pipeTo"in d.options.body&&typeof d.options.body.pipeTo=="function"||typeof d.options.body.pipe=="function")&&("duplex"in d.options||(d.options.duplex="half")));let x;if(!d.options.signal&&d.options.timeout){const T=new o;x=setTimeout(()=>{const B=new Error("[TimeoutError]: The operation was aborted due to timeout");B.name="TimeoutError",B.code=23,T.abort(B)},d.options.timeout),d.options.signal=T.signal}try{d.response=await f(d.request,d.options)}catch(T){return d.error=T,d.options.onRequestError&&await Gi(d,d.options.onRequestError),await m(d)}finally{x&&clearTimeout(x)}if((d.response.body||d.response._bodyInit)&&!Ev.has(d.response.status)&&d.options.method!=="HEAD"){const T=(d.options.parseResponse?"json":d.options.responseType)||gv(d.response.headers.get("content-type")||"");switch(T){case"json":{const B=await d.response.text(),Y=d.options.parseResponse||Hy;d.response._data=Y(B);break}case"stream":{d.response._data=d.response.body||d.response._bodyInit;break}default:d.response._data=await d.response[T]()}}return d.options.onResponse&&await Gi(d,d.options.onResponse),!d.options.ignoreResponseError&&d.response.status>=400&&d.response.status<600?(d.options.onResponseError&&await Gi(d,d.options.onResponseError),await m(d)):d.response},g=async function(A,h){return(await v(A,h))._data};return g.raw=v,g.native=(...y)=>f(...y),g.create=(y={},A={})=>I0({...i,...A,defaults:{...i.defaults,...A.defaults,...y}}),g}const Qi=function(){if(typeof globalThis<"u")return globalThis;if(typeof self<"u")return self;if(typeof window<"u")return window;if(typeof global<"u")return global;throw new Error("unable to locate global object")}(),_v=Qi.fetch?(...i)=>Qi.fetch(...i):()=>Promise.reject(new Error("[ofetch] global.fetch is not supported!")),Av=Qi.Headers,Tv=Qi.AbortController,Ji=I0({fetch:_v,Headers:Av,AbortController:Tv}),N0=i=>{let f;const s=new Set,o=(h,d)=>{const x=typeof h=="function"?h(f):h;if(!Object.is(x,f)){const E=f;f=d??(typeof x!="object"||x===null)?x:Object.assign({},f,x),s.forEach(T=>T(f,E))}},m=()=>f,y={setState:o,getState:m,getInitialState:()=>A,subscribe:h=>(s.add(h),()=>s.delete(h))},A=f=i(o,m,y);return y},Ov=i=>i?N0(i):N0,wv=i=>i;function Rv(i,f=wv){const s=vl.useSyncExternalStore(i.subscribe,()=>f(i.getState()),()=>f(i.getInitialState()));return vl.useDebugValue(s),s}/* --- MULAI COPY DARI SINI (Gantikan kode dari const D0... sampai bawah) --- */
 
 const D0 = i => {
     const f = Ov(i),
@@ -72,20 +72,19 @@ At = zv(i => ({
     paymentForProduct: null,
     setPaymentForProduct: f => i({ paymentForProduct: f }),
 
-    // --- STATE BARU UNTUK FLOW TRANSFER ---
+    // --- STATE POPUP ---
     showPayment: !1,
     setShowPayment: f => i({ showPayment: f }),
     showDetailPesanan: !1,
     setShowDetailPesanan: f => i({ showDetailPesanan: f }),
     
-    // Popup Instruksi Transfer & Upload
+    // STATE BARU: Popup Instruksi Transfer
     showTransferInstruction: !1,
     setShowTransferInstruction: f => i({ showTransferInstruction: f }),
     
-    // Data Input User
+    // STATE BARU: Data Input User
     userTransferData: { name: "", account: "" },
     setUserTransferData: f => i({ userTransferData: f }),
-    // --------------------------------------
 
     setCheckChannel: f => i({ CheckChannel: f }),
     publicErrorBox: { msg: "", show: !1 },
@@ -108,7 +107,7 @@ async function M0(i) {
     await Nv(i.product_id) && (At.getState().setPaymentForProduct(i), At.getState().setShowPayment(!0))
 }
 
-// 1. LIST BANK & E-WALLET INDONESIA (Manual)
+// 1. LIST PEMBAYARAN (BANK & E-WALLET)
 async function Nv(i) {
     At.getState().setPayChannels([
         {
@@ -133,70 +132,47 @@ async function Nv(i) {
     return true;
 }
 
-// 2. DATA PRODUK (Hardcoded Bongkar Chip)
+// 2. LOAD PRODUK (Default)
 async function Dv() {
     try {
-        var customList = [
-            { product_id: "1", product_name: "Bongkar 1B Koin", price: 65000, rewards: [{ prop_num: 1000000000 }], product_type: 1 },
-            { product_id: "2", product_name: "Bongkar 2B Koin", price: 130000, rewards: [{ prop_num: 2000000000 }], product_type: 1 },
-            { product_id: "3", product_name: "Bongkar 3B Koin", price: 195000, rewards: [{ prop_num: 3000000000 }], product_type: 1 },
-            { product_id: "4", product_name: "Bongkar 5B Koin", price: 325000, rewards: [{ prop_num: 5000000000 }], product_type: 1 },
-            { product_id: "5", product_name: "Bongkar 10B Koin", price: 650000, rewards: [{ prop_num: 10000000000 }], product_type: 1 },
-        ];
-        At.getState().setProducts(customList);
-    } catch (e) {}
-}
-
-// Cek ID Player ke Server
-async function Mv(i, f) {
-    if (i === void 0 || f === void 0) return At.getState().setPublicErrorBox({ show: !0, msg: "Gagal membaca informasi!" }), !1;
-    
-    const dummyId = "1"; // Pancingan ID agar server merespon
-    const s = `player_id=${f}&product_id=${dummyId}&signature=${At.getState().signature}`, o = $0(s);
-
-    try {
-        const m = await Ji("/agent_recharge/order/info", {
-            baseURL: "https://idn-ack.neopartyworld.com",
-            headers: { Signature: o },
-            query: { player_id: f, product_id: dummyId }
-        });
-
-        if (m.En === 0) {
-            const selectedProduct = At.getState().products.find(p => p.product_id == i);
-            const updatedOrderInfo = {
-                ...m.Data,
-                player_nick: m.Data.player_nick,
-                product_name: selectedProduct ? selectedProduct.product_name : m.Data.product_name,
-                gift_name: selectedProduct ? selectedProduct.product_name : m.Data.gift_name,
-                amount: selectedProduct ? selectedProduct.price : m.Data.amount,
-                product_type: selectedProduct ? selectedProduct.product_type : 1
-            };
-            At.getState().setOrderInfo(updatedOrderInfo);
-            return !0;
-        } else {
-            return At.getState().setPublicErrorBox({ show: !0, msg: m.En === 656 ? "ID Pengguna tidak ditemukan!" : "Gagal memulai pembayaran!" }), !1;
-        }
+        const i = await Ji("/agent_recharge/product/list", { baseURL: "https://idn-ack.neopartyworld.com" });
+        i.En === 0 ? At.getState().setProducts(i.Data.list) : At.getState().setPublicErrorBox({ show: !0, msg: "Gagal memuat produk, silakan coba lagi!" })
     } catch {
-        return At.getState().setPublicErrorBox({ show: !0, msg: "Koneksi bermasalah saat cek ID!" }), !1;
+        At.getState().setPublicErrorBox({ show: !0, msg: "Koneksi jaringan bermasalah, silakan coba lagi!" })
     }
 }
 
-// 3. FUNGSI SUBMIT KONFIRMASI (Buka Popup Instruksi)
+// 3. CEK ORDER INFO
+async function Mv(i, f) {
+    if (i === void 0 || f === void 0) return At.getState().setPublicErrorBox({ show: !0, msg: "Gagal membaca informasi, silakan coba lagi!" }), !1;
+    const s = `player_id=${f}&product_id=${i}&signature=${At.getState().signature}`, o = $0(s);
+    try {
+        const m = await Ji("/agent_recharge/order/info", { baseURL: "https://idn-ack.neopartyworld.com", headers: { Signature: o }, query: { player_id: f, product_id: i } });
+        return m.En === 0 ? (At.getState().setOrderInfo(m.Data), !0) : m.En === 656 ? (At.getState().setPublicErrorBox({ show: !0, msg: "Ada kesalahan ID Pengguna!" }), !1) : (At.getState().setPublicErrorBox({ show: !0, msg: "Gagal memulai pembayaran, silakan coba lagi!" }), !1)
+    } catch {
+        return At.getState().setPublicErrorBox({ show: !0, msg: "Koneksi jaringan bermasalah, silakan coba lagi" }), !1
+    }
+}
+
+// 4. FUNGSI "LANJUTKAN" (GANTI LOGIKA PAKASIR)
 async function jv(userName, userAccount) {
     const state = At.getState();
-    if(!userName || !userAccount) {
-        state.setPublicErrorBox({ show: true, msg: "Mohon lengkapi Nama dan No Rekening!" });
+    
+    // Validasi Input
+    if (!userName || !userAccount) {
+        state.setPublicErrorBox({ show: true, msg: "Mohon isi Nama dan Nomor Rekening/E-Wallet!" });
         return;
     }
-    // Simpan data dan pindah popup
+
+    // Simpan data user & Buka Popup Instruksi
     state.setUserTransferData({ name: userName, account: userAccount });
-    state.setShowDetailPesanan(false);
-    state.setShowTransferInstruction(true);
+    state.setShowDetailPesanan(false); // Tutup popup konfirmasi
+    state.setShowTransferInstruction(true); // Buka popup instruksi
 }
 
 // --- KOMPONEN UI ---
 
-// Tooltip Sederhana (Pengganti library yang bikin blank)
+// Tooltip Sederhana (Pengganti Library Berat agar tidak Blank)
 const Vp = ({ title, content, children, position }) => {
     const [open, setOpen] = Z.useState(false);
     return D.jsxs("div", {
@@ -215,14 +191,11 @@ const Vp = ({ title, content, children, position }) => {
     });
 };
 
-function Kp() {
-    const [i] = Z.useState(() => Math.random().toString(36).substr(2, 9));
-    return i
-}
-
-// 4. POPUP KONFIRMASI (Dengan Input Nama & Rekening)
+// POPUP KONFIRMASI (INPUT NAMA & REKENING)
 function Uv() {
-    const { orderInfo: i, setShowDetailPesanan: s, setShowPayment: o } = At();
+    const { orderInfo: i, paymentForProduct: f, setShowDetailPesanan: s, setShowPayment: o, CheckChannel: m } = At();
+    
+    // State lokal untuk input form
     const [name, setName] = Z.useState("");
     const [account, setAccount] = Z.useState("");
 
@@ -237,49 +210,88 @@ function Uv() {
                 onClick: g => g.stopPropagation(),
                 children: [
                     D.jsx("button", { className: "absolute top-1/20 right-0 z-20 w-72/653 flex items-center justify-center hover:cursor-pointer", onClick: () => v(), children: D.jsx("img", { src: "/tc_X.png", className: "w-full h-full object-contain", alt: "" }) }),
+                    
+                    // Informasi Pesanan
                     D.jsx("div", {
                         className: "absolute w-540/653 h-241/587 z-10 left-56/653 top-5/100 flex flex-col items-center justify-start pt-8 text-center",
                         children: D.jsxs("span", {
                             className: "font-['Arial'] text-[#336699] text-xs sm:text-base md:text-lg font-medium w-full",
                             children: [
-                                D.jsxs("div", { className: "font-[700] flex items-center justify-center mb-1", children: [D.jsx("span", { className: "text-right w-2/5 pr-2", children: "ID :" }), D.jsx("span", { className: "text-left w-1/2", children: i == null ? void 0 : i.player_id })] }),
-                                D.jsxs("div", { className: "font-[700] flex items-center justify-center mb-1", children: [D.jsx("span", { className: "text-right w-2/5 pr-2", children: "Nick :" }), D.jsx("span", { className: "text-left w-1/2 truncate", children: i == null ? void 0 : i.player_nick })] }),
-                                D.jsxs("div", { className: "font-[700] flex items-center justify-center", children: [D.jsx("span", { className: "text-right w-2/5 pr-2", children: "Harga :" }), D.jsx("span", { className: "text-left w-1/2 text-[#FD7100]", children: ["Rp ", (i == null ? void 0 : i.amount).toLocaleString('id-ID')] })] })
+                                D.jsxs("div", { className: "font-[700] flex items-center justify-center mb-1", children: [D.jsx("span", { className: "text-right w-2/5 pr-2", children: "ID :" }), D.jsx("span", { className: "w-1/2 text-left", children: i == null ? void 0 : i.player_id })] }),
+                                D.jsxs("div", { className: "font-[700] flex items-center justify-center mb-1", children: [D.jsx("span", { className: "text-right w-2/5 pr-2", children: "Nick :" }), D.jsx("span", { className: "w-1/2 text-left truncate", children: i == null ? void 0 : i.player_nick })] }),
+                                D.jsxs("div", { className: "font-[700] flex items-center justify-center mb-1", children: [D.jsx("span", { className: "text-right w-2/5 pr-2", children: "Item :" }), D.jsx("span", { className: "w-1/2 text-left", children: (i == null ? void 0 : i.product_type) === 1 ? i == null ? void 0 : i.product_name : i == null ? void 0 : i.gift_name })] }),
+                                D.jsxs("div", { className: "font-[700] flex items-center justify-center", children: [D.jsx("span", { className: "text-right w-2/5 pr-2", children: "Harga :" }), D.jsx("span", { className: "w-1/2 text-left text-[#FD7100]", children: ["Rp ", (i == null ? void 0 : i.amount).toLocaleString('id-ID')] })] })
                             ]
                         })
                     }),
-                    // Form Input
+
+                    // FORM INPUT NAMA & REKENING (Di Atas Tombol Beli)
                     D.jsxs("div", {
-                        className: "absolute w-full px-12 top-[38%] flex flex-col gap-2 sm:gap-3",
+                        className: "absolute w-full px-12 top-[42%] flex flex-col gap-2 sm:gap-3",
                         children: [
-                            D.jsxs("div", { className: "flex flex-col", children: [D.jsx("label", { className: "text-[#336699] font-bold ml-2 text-xs sm:text-sm", children: "Nama Pengirim:" }), D.jsx("input", { type: "text", value: name, onChange: (e) => setName(e.target.value), placeholder: "Nama di Rekening/E-Wallet", className: "w-full p-2 rounded-lg border-2 border-[#33ccff] bg-[#f0ffff] text-[#064B7F] font-bold outline-none text-sm" })] }),
-                            D.jsxs("div", { className: "flex flex-col", children: [D.jsx("label", { className: "text-[#336699] font-bold ml-2 text-xs sm:text-sm", children: "No. Rek / E-Wallet:" }), D.jsx("input", { type: "number", value: account, onChange: (e) => setAccount(e.target.value), placeholder: "08xxxxx / No Rekening", className: "w-full p-2 rounded-lg border-2 border-[#33ccff] bg-[#f0ffff] text-[#064B7F] font-bold outline-none text-sm" })] })
+                            D.jsxs("div", {
+                                className: "flex flex-col",
+                                children: [
+                                    D.jsx("label", { className: "text-[#336699] font-bold ml-2 text-xs sm:text-sm mb-1", children: "Nama Pengirim:" }),
+                                    D.jsx("input", { 
+                                        type: "text", 
+                                        value: name, 
+                                        onChange: (e) => setName(e.target.value), 
+                                        placeholder: "Nama di Rekening/E-Wallet", 
+                                        className: "w-full p-2 rounded-lg border-2 border-[#33ccff] bg-[#f0ffff] text-[#064B7F] font-bold outline-none text-sm" 
+                                    })
+                                ]
+                            }),
+                            D.jsxs("div", {
+                                className: "flex flex-col",
+                                children: [
+                                    D.jsx("label", { className: "text-[#336699] font-bold ml-2 text-xs sm:text-sm mb-1", children: "No. Rek / E-Wallet:" }),
+                                    D.jsx("input", { 
+                                        type: "number", 
+                                        value: account, 
+                                        onChange: (e) => setAccount(e.target.value), 
+                                        placeholder: "Contoh: 081234567890", 
+                                        className: "w-full p-2 rounded-lg border-2 border-[#33ccff] bg-[#f0ffff] text-[#064B7F] font-bold outline-none text-sm" 
+                                    })
+                                ]
+                            })
                         ]
                     }),
-                    D.jsx("button", { className: "absolute bottom-8 sm:bottom-12 left-1/2 -translate-x-1/2 z-20 w-1/3 flex items-center justify-center hover:opacity-80 transition-opacity hover:cursor-pointer", onClick: () => jv(name, account), children: D.jsx("img", { src: "/buy.png", className: "w-full h-full object-contain", alt: "Lanjutkan" }) })
+
+                    // Tombol Lanjutkan (Memanggil fungsi jv)
+                    D.jsx("button", {
+                        className: "absolute bottom-6 sm:bottom-10 left-1/15 z-20 w-241/653 flex items-center justify-center hover:opacity-80 transition-opacity hover:cursor-pointer left-1/2 -translate-x-1/2",
+                        onClick: () => jv(name, account),
+                        children: D.jsx("img", { src: "/buy.png", className: "w-full h-full object-contain", alt: "Lanjutkan" })
+                    })
                 ]
             })
         ]
     })
 }
 
-// 5. POPUP INSTRUKSI TRANSFER & UPLOAD (Baru)
+// POPUP INSTRUKSI TRANSFER & UPLOAD (Baru)
 function Tv() {
-    const { setShowTransferInstruction, orderInfo, userTransferData, paymentForProduct } = At();
-    const targetID = "88991122"; // ID Admin Tujuan
+    const { setShowTransferInstruction, orderInfo, paymentForProduct, userTransferData } = At();
+    const targetID = "12345678"; // ID Admin Tujuan
     const [file, setFile] = Z.useState(null);
 
     const handleCopy = () => {
         navigator.clipboard.writeText(targetID);
-        alert("ID berhasil disalin: " + targetID);
+        alert("ID berhasil disalin!");
     };
 
     const handleSubmit = () => {
-        if (!file) { alert("Harap upload bukti transfer!"); return; }
+        if (!file) {
+            alert("Harap upload bukti transfer chip!");
+            return;
+        }
+        // Redirect ke success.html dengan parameter
         const productName = encodeURIComponent(paymentForProduct?.product_name || "Produk");
         const amount = paymentForProduct?.price || 0;
-        // Redirect ke success.html
-        window.location.href = `success.html?id=${orderInfo?.player_id}&name=${productName}&pay=${amount}&sender=${userTransferData.name}`;
+        const redirectUrl = `success.html?id=${orderInfo?.player_id}&name=${productName}&pay=${amount}&sender=${userTransferData.name}`;
+        
+        window.location.href = redirectUrl;
     };
 
     return D.jsxs("div", {
@@ -290,21 +302,44 @@ function Tv() {
                 className: "relative w-full max-w-[800px] aspect-[800/412] bg-[url('/info.png')] flex flex-col justify-center items-center bg-cover bg-no-repeat bg-center rounded-2xl overflow-visible",
                 onClick: s => s.stopPropagation(),
                 children: [
-                    D.jsx("button", { className: `absolute -top-4 right-4 z-20 w-10 hover:cursor-pointer`, onClick: () => setShowTransferInstruction(!1), children: D.jsx("img", { src: "/tc_X.png", className: "w-full h-full object-contain", alt: "" }) }),
+                    D.jsx("button", { className: `absolute -top-4 right-4 z-20 w-10 flex items-center justify-center hover:cursor-pointer`, onClick: () => setShowTransferInstruction(!1), children: D.jsx("img", { src: "/tc_X.png", className: "w-full h-full object-contain", alt: "" }) }),
+                    
                     D.jsxs("div", {
                         className: "w-full h-full flex flex-col items-center justify-center pt-8 px-8 gap-3",
                         children: [
-                            D.jsx("h2", { className: "text-[#1E628D] font-black text-lg sm:text-2xl uppercase", children: "Silahkan Kirim Chip Disini" }),
+                            D.jsx("h2", { className: "text-[#1E628D] font-black text-xl sm:text-2xl uppercase", children: "Silahkan Kirim Chip Disini" }),
+                            
+                            // Bingkai ID
                             D.jsxs("div", {
-                                className: "flex items-center gap-3 bg-white/90 p-3 rounded-xl border-2 border-[#33ccff] shadow-sm",
+                                className: "flex items-center gap-4 bg-white/80 p-3 rounded-xl border-2 border-[#33ccff]",
                                 children: [
-                                    D.jsxs("div", { className: "flex flex-col items-center", children: [D.jsx("span", { className: "text-xs text-gray-500 font-bold", children: "ID TUJUAN" }), D.jsx("span", { className: "text-xl sm:text-3xl font-black text-[#FD7100] tracking-widest", children: targetID })] }),
-                                    D.jsx("button", { onClick: handleCopy, className: "bg-[#0099ff] text-white px-3 py-1 rounded shadow hover:bg-[#007acc] font-bold text-sm", children: "COPY" })
+                                    D.jsxs("div", { className: "flex flex-col items-center", children: [
+                                        D.jsx("span", { className: "text-sm text-gray-500 font-bold", children: "ID TUJUAN" }),
+                                        D.jsx("span", { className: "text-2xl sm:text-4xl font-black text-[#FD7100] tracking-widest", children: targetID })
+                                    ]}),
+                                    D.jsx("button", {
+                                        onClick: handleCopy,
+                                        className: "bg-[#0099ff] text-white px-4 py-2 rounded-lg font-bold hover:bg-[#007acc] transition",
+                                        children: "COPY ID"
+                                    })
                                 ]
                             }),
+
                             D.jsx("div", { className: "text-sm text-[#1E628D] font-bold text-center", children: "Kirimkan chip sesuai nominal ke ID di atas, lalu upload buktinya." }),
-                            D.jsx("input", { type: "file", accept: "image/*", onChange: (e) => setFile(e.target.files[0]), className: "block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#e0f7fa] file:text-[#0099ff] hover:file:bg-[#b2ebf2]" }),
-                            D.jsx("div", { className: "w-32 sm:w-40 mt-2 hover:cursor-pointer", children: D.jsx("img", { src: "ok.png", alt: "Konfirmasi", onClick: handleSubmit, className: "w-full" }) })
+
+                            // Upload Input
+                            D.jsx("input", {
+                                type: "file",
+                                accept: "image/*",
+                                onChange: (e) => setFile(e.target.files[0]),
+                                className: "block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#e0f7fa] file:text-[#0099ff] hover:file:bg-[#b2ebf2]"
+                            }),
+
+                            // Tombol OK
+                            D.jsx("div", {
+                                className: "w-40 sm:w-48 hover:cursor-pointer mt-2",
+                                children: D.jsx("img", { src: "ok.png", alt: "Konfirmasi", onClick: handleSubmit, className: "w-full" })
+                            })
                         ]
                     })
                 ]
@@ -313,43 +348,9 @@ function Tv() {
     })
 }
 
-function Cv() {
-    const { publicErrorBox: i, setBoxState: f } = At();
-    return D.jsxs("div", {
-        className: "fixed inset-0 z-30 flex items-center justify-center",
-        children: [
-            D.jsx("div", { className: "absolute inset-0 bg-black/50 backdrop-blur-sm", onClick: () => f(!1) }),
-            D.jsxs("div", {
-                className: "relative w-full max-w-[800px] max-h-[80vh] aspect-[800/472] bg-[url('/error.png')] bg-cover bg-no-repeat bg-center rounded-2xl overflow-visible",
-                onClick: s => s.stopPropagation(),
-                children: [
-                    D.jsx("button", { className: `absolute top-36/472 right-30/800 z-20 w-72/800 flex items-center justify-center hover:cursor-pointer`, onClick: () => f(!1), children: D.jsx("img", { src: "/tc_X.png", className: "w-full h-full object-contain", alt: "" }) }),
-                    D.jsx("div", { className: "absolute w-339/800 h-200/472 z-10 right-70/800 top-130/472 flex items-center justify-center text-center", children: D.jsx("span", { className: "font-['Arial'] font-bold text-[#1E628D] text-sm sm:text-[30.4px] md:text-[36.48px] lg:text-[38px]", children: i.msg }) }),
-                    D.jsx("div", { className: "absolute w-241/800 bottom-40/371 right-1/7 hover:cursor-pointer", children: D.jsx("img", { src: "ok.png", alt: "", onClick: () => f(!1) }) })
-                ]
-            })
-        ]
-    })
-}
-
-function Bv() {
-    const { publicInfoBox: i, setInfoBoxState: f } = At();
-    return D.jsxs("div", {
-        className: "fixed inset-0 z-30 flex items-center justify-center",
-        children: [
-            D.jsx("div", { className: "absolute inset-0 bg-black/50 backdrop-blur-sm", onClick: () => f(!1) }),
-            D.jsxs("div", {
-                className: "relative w-full max-w-[800px] max-h-[80vh] aspect-[800/412] bg-[url('/info.png')] flex flex-col justify-center items-center gap-y-2 bg-cover bg-no-repeat bg-center rounded-2xl overflow-visible",
-                onClick: s => s.stopPropagation(),
-                children: [
-                    D.jsx("button", { className: `absolute -top-20/412 right-60/800 z-20 w-72/800 flex items-center justify-center hover:cursor-pointer`, onClick: () => f(!1), children: D.jsx("img", { src: "/tc_X.png", className: "w-full h-full object-contain", alt: "" }) }),
-                    D.jsx("div", { className: "w-624/800 h-200/412 z-10 right-70/800 top-130/412 flex items-center justify-center text-center", children: D.jsx("span", { className: "font-['Arial'] font-bold text-[#1E628D] text-sm sm:text-[30.4px] md:text-[36.48px] lg:text-[38px]", children: i.msg }) }),
-                    D.jsx("div", { className: "w-241/800 hover:cursor-pointer", children: D.jsx("img", { src: "ok.png", alt: "", onClick: () => f(!1) }) })
-                ]
-            })
-        ]
-    })
-}
+// Komponen Error & Info
+function Cv() { const { publicErrorBox: i, setBoxState: f } = At(); return D.jsxs("div", { className: "fixed inset-0 z-30 flex items-center justify-center", children: [D.jsx("div", { className: "absolute inset-0 bg-black/50 backdrop-blur-sm", onClick: () => f(!1) }), D.jsxs("div", { className: "relative w-full max-w-[800px] max-h-[80vh] aspect-[800/472] bg-[url('/error.png')] bg-cover bg-no-repeat bg-center rounded-2xl overflow-visible", onClick: s => s.stopPropagation(), children: [D.jsx("button", { className: `absolute top-36/472 right-30/800 z-20 w-72/800 flex items-center justify-center hover:cursor-pointer`, onClick: () => f(!1), children: D.jsx("img", { src: "/tc_X.png", className: "w-full h-full object-contain", alt: "" }) }), D.jsx("div", { className: "absolute w-339/800 h-200/472 z-10 right-70/800 top-130/472 flex items-center justify-center text-center", children: D.jsx("span", { className: "font-['Arial'] font-bold text-[#1E628D] text-sm sm:text-[30.4px] md:text-[36.48px] lg:text-[38px]", children: i.msg }) }), D.jsx("div", { className: "absolute w-241/800 bottom-40/371 right-1/7 hover:cursor-pointer", children: D.jsx("img", { src: "ok.png", alt: "", onClick: () => f(!1) }) })] })] }) }
+function Bv() { const { publicInfoBox: i, setInfoBoxState: f } = At(); return D.jsxs("div", { className: "fixed inset-0 z-30 flex items-center justify-center", children: [D.jsx("div", { className: "absolute inset-0 bg-black/50 backdrop-blur-sm", onClick: () => f(!1) }), D.jsxs("div", { className: "relative w-full max-w-[800px] max-h-[80vh] aspect-[800/412] bg-[url('/info.png')] flex flex-col justify-center items-center gap-y-2 bg-cover bg-no-repeat bg-center rounded-2xl overflow-visible", onClick: s => s.stopPropagation(), children: [D.jsx("button", { className: `absolute -top-20/412 right-60/800 z-20 w-72/800 flex items-center justify-center hover:cursor-pointer`, onClick: () => f(!1), children: D.jsx("img", { src: "/tc_X.png", className: "w-full h-full object-contain", alt: "" }) }), D.jsx("div", { className: "w-624/800 h-200/412 z-10 right-70/800 top-130/412 flex items-center justify-center text-center", children: D.jsx("span", { className: "font-['Arial'] font-bold text-[#1E628D] text-sm sm:text-[30.4px] md:text-[36.48px] lg:text-[38px]", children: i.msg }) }), D.jsx("div", { className: "w-241/800 hover:cursor-pointer", children: D.jsx("img", { src: "ok.png", alt: "", onClick: () => f(!1) }) })] })] }) }
 
 function Hv() {
     const i = Z.useRef(null), f = Z.useRef(null);
@@ -366,74 +367,22 @@ function Hv() {
     }
     const isPopupActive = showPayment || showDetailPesanan || showGuide || publicErrorBox.show || publicInfoBox.show || showTransferInstruction;
 
-    return Z.useEffect(() => (window.addEventListener("resize", v), () => { window.removeEventListener("resize", v) })),
-        D.jsxs("div", {
-            className: "flex flex-col items-center -mt-[60px] sm:-mt-[96px] md:-mt-[115.2px] lg:-mt-[120px] justify-center mx-6 relative",
-            children: [
-                !isPopupActive && D.jsx("a", { href: "https://www.neoparty.web.id", target: "_blank", className: "w-full mb-4 py-3 bg-[#FFD700] text-[#064B7F] font-black rounded-2xl text-center shadow-xl block z-20 border-2 border-[#FD7100]", style: { opacity: "1", backgroundColor: "#FFD700", color: "#064B7F", fontSize: "18px", fontWeight: "900", textDecoration: "none" }, children: "BONGKAR KLIK DISINI" }),
-                D.jsxs("div", {
-                    className: "relative w-full",
-                    children: [
-                        D.jsx("img", { src: "/masukkan_id.png", alt: "", ref: i, onLoad: v, className: "w-full" }),
-                        D.jsx("img", { className: "absolute w-48/752 right-60/752 top-90/342 z-2 hover:cursor-pointer", src: "/wy_wh.png", alt: "", onClick: () => m(!0) }),
-                        D.jsx("input", { value: s, onChange: g => o(g.target.value), type: "text", className: "absolute left-0 w-full h-full text-center text-xl font-bold text-white border-none outline-0 hover:cursor-pointer", inputMode: "numeric", ref: f })
-                    ]
-                })
-            ]
-        })
+    return Z.useEffect(() => (window.addEventListener("resize", v), () => { window.removeEventListener("resize", v) })), D.jsxs("div", { className: "flex flex-col items-center -mt-[60px] sm:-mt-[96px] md:-mt-[115.2px] lg:-mt-[120px] justify-center mx-6 relative", children: [!isPopupActive && D.jsx("a", { href: "https://www.neoparty.web.id", target: "_blank", className: "w-full mb-4 py-3 bg-[#FFD700] text-[#064B7F] font-black rounded-2xl text-center shadow-xl block z-20 border-2 border-[#FD7100]", style: { opacity: "1", backgroundColor: "#FFD700", color: "#064B7F", fontSize: "18px", fontWeight: "900", textDecoration: "none" }, children: "BONGKAR KLIK DISINI" }), D.jsxs("div", { className: "relative w-full", children: [D.jsx("img", { src: "/masukkan_id.png", alt: "", ref: i, onLoad: v, className: "w-full" }), D.jsx("img", { className: "absolute w-48/752 right-60/752 top-90/342 z-2 hover:cursor-pointer", src: "/wy_wh.png", alt: "", onClick: () => m(!0) }), D.jsx("input", { value: s, onChange: g => o(g.target.value), type: "text", className: "absolute left-0 w-full h-full text-center text-xl font-bold text-white border-none outline-0 hover:cursor-pointer", inputMode: "numeric", ref: f })] })] })
 }
 
 function qv() {
     const { payChannels: i, paymentForProduct: f, player_id: s, setShowDetailPesanan: o, setShowPayment: m, setCheckChannel: v } = At();
     async function g(y) { await Mv(f == null ? void 0 : f.product_id, s) && (m(!1), o(!0), v(y)) }
-    return D.jsxs("div", {
-        className: "fixed inset-0 z-10 flex items-center justify-center p-4",
-        children: [
-            D.jsx("div", { className: "absolute inset-0 bg-black/50 backdrop-blur-sm", onClick: () => m(!1) }),
-            D.jsxs("div", {
-                className: `relative w-full max-w-[653px] bg-[#a1f5fa] p-4 pt-7 sm:pt-12 md:pt-14 lg:pt-15 rounded-2xl border-[#0099ff] border-solid border-2 flex justify-center flex-col`,
-                onClick: y => y.stopPropagation(),
-                children: [
-                    D.jsx("button", { className: `absolute -top-[7.03px] sm:-top-[12px] md:-top-[14.4px] lg:-top-[15px] xl:-top-[15px] 2xl:-top-[15px] -right-[9.375px] sm:-right-[16px] md:-right-[19.2px] lg:-right-[20px] xl:-right-[20px] 2xl:-right-[20px] z-20 w-72/653 flex items-center justify-center hover:cursor-pointer`, onClick: () => m(!1), children: D.jsx("img", { src: "/tc_X.png", className: "w-full h-full object-contain", alt: "" }) }),
-                    D.jsx("div", { className: "absolute w-444/653 -top-[18.75px] sm:-top-[32px] md:-top-[38.4px] lg:-top-[40px] xl:-top-[40px] 2xl:-top-[40px] left-[16%]", children: D.jsx("img", { src: "/pay_channel_title.png", alt: "" }) }),
-                    i == null ? void 0 : i.map(y => D.jsxs("div", {
-                        className: `flex justify-center w-full flex-wrap pt-2 sm:pt-2 md:pt-3 lg:pt-4 xl:pt-4 2xl:pt-4`,
-                        children: [
-                            D.jsx("div", { className: "w-full text-center font-['Arial'] font-[700] text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-2xl 2xl:text-2xl text-[#064B7F] mb-2 sm:mb-2 md:mb-3 lg:mb-4", children: D.jsx("span", { children: y.type }) }),
-                            D.jsx("div", {
-                                className: `flex justify-center w-full flex-wrap gap-x-[14.06px] sm:gap-x-[24px] md:gap-x-[28.8px] lg:gap-x-[30px] xl:gap-x-[30px] 2xl:gap-x-[30px] gap-y-[14.06px] sm:gap-y-[24px] md:gap-y-[28.8px] lg:gap-y-[30px] xl:gap-y-[30px] 2xl:gap-y-[30px]`,
-                                children: y == null ? void 0 : y.list.map(A => D.jsx("div", { className: "border-[#33ccff] border-1 border-solid rounded-2xl bg-[#ccffff] max-w-[219px] w-[102.65px] sm:w-[175.2px] md:w-[210.24px] lg:w-[219px] xl:w-[219px] 2xl:w-[219px] px-2 flex justify-center hover:cursor-pointer", onClick: () => g(A.payment_id), children: D.jsx("img", { src: "/" + (A.bank_code === "" ? A.channel : A.bank_code) + ".png", alt: "" }) }, A.payment_id))
-                            })
-                        ]
-                    }, y.type)),
-                    D.jsx("p", { className: "w-full text-center font-['Arial'] font-[700] text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-2xl 2xl:text-2xl text-[#13AAC3] mt-4", children: "Gunakan metode Top Up bertanda ‘Extra’ untuk mendapatkan extra koin!" })
-                ]
-            })
-        ]
-    })
+    return D.jsxs("div", { className: "fixed inset-0 z-10 flex items-center justify-center p-4", children: [D.jsx("div", { className: "absolute inset-0 bg-black/50 backdrop-blur-sm", onClick: () => m(!1) }), D.jsxs("div", { className: `relative w-full max-w-[653px] bg-[#a1f5fa] p-4 pt-7 sm:pt-12 md:pt-14 lg:pt-15 rounded-2xl border-[#0099ff] border-solid border-2 flex justify-center flex-col`, onClick: y => y.stopPropagation(), children: [D.jsx("button", { className: `absolute -top-[7.03px] sm:-top-[12px] md:-top-[14.4px] lg:-top-[15px] xl:-top-[15px] 2xl:-top-[15px] -right-[9.375px] sm:-right-[16px] md:-right-[19.2px] lg:-right-[20px] xl:-right-[20px] 2xl:-right-[20px] z-20 w-72/653 flex items-center justify-center hover:cursor-pointer`, onClick: () => m(!1), children: D.jsx("img", { src: "/tc_X.png", className: "w-full h-full object-contain", alt: "" }) }), D.jsx("div", { className: "absolute w-444/653 -top-[18.75px] sm:-top-[32px] md:-top-[38.4px] lg:-top-[40px] xl:-top-[40px] 2xl:-top-[40px] left-[16%]", children: D.jsx("img", { src: "/pay_channel_title.png", alt: "" }) }), i == null ? void 0 : i.map(y => D.jsxs("div", { className: `flex justify-center w-full flex-wrap pt-2 sm:pt-2 md:pt-3 lg:pt-4 xl:pt-4 2xl:pt-4`, children: [D.jsx("div", { className: "w-full text-center font-['Arial'] font-[700] text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-2xl 2xl:text-2xl text-[#064B7F] mb-2 sm:mb-2 md:mb-3 lg:mb-4", children: D.jsx("span", { children: y.type }) }), D.jsx("div", { className: `flex justify-center w-full flex-wrap gap-x-[14.06px] sm:gap-x-[24px] md:gap-x-[28.8px] lg:gap-x-[30px] xl:gap-x-[30px] 2xl:gap-x-[30px] gap-y-[14.06px] sm:gap-y-[24px] md:gap-y-[28.8px] lg:gap-y-[30px] xl:gap-y-[30px] 2xl:gap-y-[30px]`, children: y == null ? void 0 : y.list.map(A => D.jsx("div", { className: "border-[#33ccff] border-1 border-solid rounded-2xl bg-[#ccffff] max-w-[219px] w-[102.65px] sm:w-[175.2px] md:w-[210.24px] lg:w-[219px] xl:w-[219px] 2xl:w-[219px] px-2 flex justify-center hover:cursor-pointer", onClick: () => g(A.payment_id), children: D.jsx("img", { src: "/" + (A.bank_code === "" ? A.channel : A.bank_code) + ".png", alt: "" }) }, A.payment_id)) })] }, y.type)), D.jsx("p", { className: "w-full text-center font-['Arial'] font-[700] text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-2xl 2xl:text-2xl text-[#13AAC3] mt-4", children: "Gunakan metode Top Up bertanda ‘Extra’ untuk mendapatkan extra koin!" })] })] })
 }
 
 function Yv() {
     const { setShowGuide: i } = At();
-    return D.jsxs("div", {
-        className: "fixed inset-0 z-10 flex items-center justify-center p-4",
-        children: [
-            D.jsx("div", { className: "absolute inset-0 bg-black/50 backdrop-blur-sm", onClick: () => i(!1) }),
-            D.jsxs("div", {
-                className: `relative w-full max-w-[653px] bg-[#a1f5fa] p-4 rounded-2xl border-[#0099ff] border-solid border-2 flex justify-center flex-col`,
-                onClick: f => f.stopPropagation(),
-                children: [
-                    D.jsx("button", { className: `absolute -top-[7.03px] sm:-top-[12px] md:-top-[14.4px] lg:-top-[15px] xl:-top-[15px] 2xl:-top-[15px] -right-[9.375px] sm:-right-[16px] md:-right-[19.2px] lg:-right-[20px] xl:-right-[20px] 2xl:-right-[20px] z-20 w-72/653 flex items-center justify-center hover:cursor-pointer`, onClick: () => i(!1), children: D.jsx("img", { src: "/tc_X.png", className: "w-full h-full object-contain", alt: "" }) }),
-                    D.jsx("img", { src: "/wysc_sm.png", alt: "" })
-                ]
-            })
-        ]
-    })
+    return D.jsxs("div", { className: "fixed inset-0 z-10 flex items-center justify-center p-4", children: [D.jsx("div", { className: "absolute inset-0 bg-black/50 backdrop-blur-sm", onClick: () => i(!1) }), D.jsxs("div", { className: `relative w-full max-w-[653px] bg-[#a1f5fa] p-4 rounded-2xl border-[#0099ff] border-solid border-2 flex justify-center flex-col`, onClick: f => f.stopPropagation(), children: [D.jsx("button", { className: `absolute -top-[7.03px] sm:-top-[12px] md:-top-[14.4px] lg:-top-[15px] xl:-top-[15px] 2xl:-top-[15px] -right-[9.375px] sm:-right-[16px] md:-right-[19.2px] lg:-right-[20px] xl:-right-[20px] 2xl:-right-[20px] z-20 w-72/653 flex items-center justify-center hover:cursor-pointer`, onClick: () => i(!1), children: D.jsx("img", { src: "/tc_X.png", className: "w-full h-full object-contain", alt: "" }) }), D.jsx("img", { src: "/wysc_sm.png", alt: "" })] })] })
 }
 
 function Jp() {
     const { products: i, showDetailPesanan: f, showPayment: s, showGuide: o, publicErrorBox: m, publicInfoBox: v, showTransferInstruction: tr } = At();
-    
     Z.useEffect(() => { Dv() }, []);
     const isPopupActive = s || f || o || m.show || v.show || tr;
 
@@ -445,24 +394,12 @@ function Jp() {
                     D.jsxs("div", {
                         className: `bg-[url(/header-bg.png)] bg-no-repeat bg-[length:100%_110%] h-[40px] sm:h-[64px] md:h-[76.8px] lg:h-[80px] relative flex items-center pl-4 pr-3`,
                         children: [
-                            D.jsxs("div", {
-                                className: "flex gap-4 items-center flex-1",
-                                children: [
-                                    D.jsx("img", { src: "/app_icon.png", className: "size-[25px] sm:size-[40px] md:size-[48px] lg:size-[50px] hover:cursor-pointer", alt: "logo", onClick: () => window.open("https://web.neoparty.id") }),
-                                    D.jsx("img", { src: "/top-title.png", className: "h-[17.5px] sm:h-[28px] md:h-[33.6px] lg:h-[35px] w-[75px] sm:w-[120px] md:h-w-[144px] lg:w-[150px] mt-1 hover:cursor-pointer", alt: "", onClick: () => window.open("https://web.neoparty.id") })
-                                ]
-                            }),
-                            D.jsx("img", { src: "/download.png", className: "h-[25px] sm:h-[40px] md:h-[48px] lg:h-[50px] w-[70px] sm:w-[112px] md:h-w-[134.4px] lg:w-[140px] mt-2 z-10 hover:cursor-pointer", alt: "", onClick: () => window.open("https://neopartypro.onelink.me/ZqED/Neo777") }),
+                            D.jsxs("div", { className: "flex gap-4 items-center flex-1", children: [D.jsx("img", { src: "/app_icon.png", className: "size-[25px] sm:size-[40px] md:size-[48px] lg:size-[50px] hover:cursor-pointer", alt: "logo", onClick: () => window.open("https://web.neoparty.id") }), D.jsx("img", { src: "/top-title.png", className: `h-[17.5px] sm:h-[28px] md:h-[33.6px] lg:h-[35px] w-[75px] sm:w-[120px] md:h-w-[144px] lg:w-[150px] mt-1 hover:cursor-pointer`, alt: "", onClick: () => window.open("https://web.neoparty.id") })] }),
+                            D.jsx("img", { src: "/download.png", className: `h-[25px] sm:h-[40px] md:h-[48px] lg:h-[50px] w-[70px] sm:w-[112px] md:h-w-[134.4px] lg:w-[140px] mt-2 z-10 hover:cursor-pointer`, alt: "", onClick: () => window.open("https://neopartypro.onelink.me/ZqED/Neo777") }),
                             D.jsx("img", { src: "/tree_siluet.png", className: "absolute right-0 top-0 h-[80px] w-[110px]", alt: "" })
                         ]
                     }),
-                    D.jsxs("div", {
-                        className: "relative -mt-1",
-                        children: [
-                            D.jsx("img", { src: "/tokobar-bongkar.png", className: "w-full", alt: "" }),
-                            D.jsx("img", { src: "/kf.png", className: "absolute w-68/800 right-2 top-8/117 hover:cursor-pointer", alt: "", onClick: () => window.open("https://neoparty.aihelp.net/webchatv4/#/appKey/NEOPARTY_app_a8850dc1af1d45f98a439d3ade628648/domain/NeoParty.aihelp.net/appId/NeoParty_platform_84f68962f02cdc131e2389aa9068468e?entranceId=web&language=id") })
-                        ]
-                    }),
+                    D.jsxs("div", { className: "relative -mt-1", children: [D.jsx("img", { src: "/tokobar-bongkar.png", className: "w-full", alt: "" }), D.jsx("img", { src: "/kf.png", className: "absolute w-68/800 right-2 top-8/117 hover:cursor-pointer", alt: "", onClick: () => window.open("https://neoparty.aihelp.net/webchatv4/#/appKey/NEOPARTY_app_a8850dc1af1d45f98a439d3ade628648/domain/NeoParty.aihelp.net/appId/NeoParty_platform_84f68962f02cdc131e2389aa9068468e?entranceId=web&language=id") })] }),
                     D.jsx("div", { className: "-mt-[30px] sm:-mt-[48px] md:-mt-[57.6px] lg:-mt-[60px]", children: D.jsx("img", { src: "/header-image.png", alt: "" }) }),
                     D.jsx(Hv, {}),
                     D.jsx("div", {
@@ -474,50 +411,21 @@ function Jp() {
                                 D.jsxs("div", {
                                     className: "flex flex-col justify-center my-4 px-4 gap-2",
                                     children: [
-                                        i.filter(g => g.product_type === 2).map(g =>
-                                            D.jsxs("div", {
-                                                className: "relative flex bg-[url('/sc_libao.png')] bg-cover bg-no-repeat bg-center rounded-2xl overflow-visible w-full aspect-[736/196] justify-evenly",
-                                                children: [
-                                                    D.jsx(Vp, {
-                                                        title: "Detail hadiah:",
-                                                        content: D.jsxs("div", { children: [D.jsx("p", { children: "Koin Max 600M" }), D.jsx("p", { children: "Max Bet 6M" }), D.jsx("p", { children: "Lebih banyak game" }), D.jsx("p", { children: "Bingkai Eksklusif" }), D.jsx("p", { children: "Buka fitur memberi" })] }),
-                                                        position: "left",
-                                                        children: D.jsx("img", { className: "absolute top-[12%] w-56/736 right-[28%] z-3 hover:cursor-pointer", src: "/sc_wenhao.png", alt: "" })
-                                                    }),
-                                                    D.jsxs("button", {
-                                                        className: "absolute w-199/726 z-2 flex flex-col items-center text-center right-2 top-[38%] hover:cursor-pointer",
-                                                        onClick: () => M0(g),
-                                                        children: [
-                                                            D.jsx("img", { src: "/btn-1.png" }),
-                                                            D.jsxs("span", { className: "select-none absolute top-3/18 font-poetsen bg-gradient-to-b bg-clip-text text-transparent from-[#FFFFFF] to-[#FFF2B4] [text-stroke:1px_#FD7100] [-webkit-text-stroke:1px_#FD7100] sm:[text-stroke:1.5px_#FD7100] sm:[-webkit-text-stroke:1.5px_#FD7100] text-[12px] sm:text-[19.2px] md:text-[23.04x] lg:text-[24px]", children: ["IDR ", (g.price / 1000).toLocaleString('id-ID'), " K"] })
-                                                        ]
-                                                    })
-                                                ]
-                                            }, g.product_id)
-                                        ),
-                                        i.filter(g => g.product_type === 1).map(g =>
-                                            D.jsxs("div", {
-                                                className: "flex bg-[url('/commodity-bg.png')] bg-cover bg-no-repeat bg-center rounded-2xl overflow-visible w-full aspect-[726/170] items-center pb-[1.76%]",
-                                                children: [
-                                                    D.jsx("div", { className: "flex-shrink-0 w-172/726 z-2", children: D.jsx("img", { src: "/gold-" + g.product_id + ".png", alt: "" }) }),
-                                                    D.jsxs("div", {
-                                                        className: "z-2 flex flex-col flex-grow text-center",
-                                                        children: [
-                                                            D.jsx("span", { className: "drop-shadow select-none truncate font-poetsen bg-gradient-to-b bg-clip-text text-transparent from-[#FFFFFF] to-[#ABFFFA] sm:[text-stroke:2px_#4486dc] sm:[-webkit-text-stroke:2px_#4486dc] [text-stroke:1px_#4486dc] [-webkit-text-stroke:1px_#4486dc] [filter:drop-shadow(5px_9px_18%_#13518155)] text-[16px] sm:text-[25.6px] md:text-[30.72px] lg:text-[32px]", children: g.rewards[0].prop_num.toLocaleString() }),
-                                                            g.rewards[1] && D.jsxs("span", { className: "select-none truncate font-arial font-[800] text-[12px] text-[#064b7f] sm:text-[19.2px] md:text-[23.04px] [text-shadow:0_0_2px_#C6EAFF,0_0_2px_#C6EAFF] [-webkit-text-shadow:0_0_2px_#C6EAFF,0_0_2px_#C6EAFF] lg:text-[24px]", children: ["Extra ", g.rewards[1].prop_num.toLocaleString()] })
-                                                        ]
-                                                    }),
-                                                    D.jsxs("button", {
-                                                        className: "relative w-199/726 z-2 flex flex-col items-center text-center flex-shrink-0 mr-2 mt-[2%] hover:cursor-pointer",
-                                                        onClick: () => M0(g),
-                                                        children: [
-                                                            D.jsx("img", { src: "/btn-1.png" }),
-                                                            D.jsxs("span", { className: "drop-shadow select-none absolute top-3/18 font-poetsen bg-gradient-to-b bg-clip-text text-transparent from-[#FFFFFF] to-[#FFF2B4] [text-stroke:.8px_#FD7100] [-webkit-text-stroke:0.8px_#FD7100] sm:[text-stroke:1.5px_#FD7100] sm:[-webkit-text-stroke:1.5px_#FD7100] text-[12px] sm:text-[19.2px] md:text-[23.04x] lg:text-[24px]", children: ["IDR ", (g.price / 1000).toLocaleString('id-ID'), " K"] })
-                                                        ]
-                                                    })
-                                                ]
-                                            }, g.product_id)
-                                        )
+                                        i.filter(g => g.product_type === 2).map(g => D.jsxs("div", {
+                                            className: "relative flex bg-[url('/sc_libao.png')] bg-cover bg-no-repeat bg-center rounded-2xl overflow-visible w-full aspect-[736/196] justify-evenly",
+                                            children: [
+                                                D.jsx(Vp, { title: "Detail hadiah:", content: D.jsxs("div", { children: [D.jsx("p", { children: "Koin Max 600M" }), D.jsx("p", { children: "Max Bet 6M" }), D.jsx("p", { children: "Lebih banyak game" }), D.jsx("p", { children: "Bingkai Eksklusif" }), D.jsx("p", { children: "Buka fitur memberi" })] }), position: "left", children: D.jsx("img", { className: "absolute top-[12%] w-56/736 right-[28%] z-3 hover:cursor-pointer", src: "/sc_wenhao.png", alt: "" }) }),
+                                                D.jsxs("button", { className: "absolute w-199/726 z-2 flex flex-col items-center text-center right-2 top-[38%] hover:cursor-pointer", onClick: () => M0(g), children: [D.jsx("img", { src: "/btn-1.png" }), D.jsxs("span", { className: "select-none absolute top-3/18 font-poetsen bg-gradient-to-b bg-clip-text text-transparent from-[#FFFFFF] to-[#FFF2B4] [text-stroke:1px_#FD7100] [-webkit-text-stroke:1px_#FD7100] sm:[text-stroke:1.5px_#FD7100] sm:[-webkit-text-stroke:1.5px_#FD7100] text-[12px] sm:text-[19.2px] md:text-[23.04x] lg:text-[24px]", children: ["IDR ", (g.price / 1e3).toLocaleString('id-ID'), " K"] })] })
+                                            ]
+                                        }, g.product_id)),
+                                        i.filter(g => g.product_type === 1).map(g => D.jsxs("div", {
+                                            className: "flex bg-[url('/commodity-bg.png')] bg-cover bg-no-repeat bg-center rounded-2xl overflow-visible w-full aspect-[726/170] items-center pb-[1.76%]",
+                                            children: [
+                                                D.jsx("div", { className: "flex-shrink-0 w-172/726 z-2", children: D.jsx("img", { src: "/gold-" + g.product_id + ".png", alt: "" }) }),
+                                                D.jsxs("div", { className: "z-2 flex flex-col  flex-grow text-center", children: [D.jsx("span", { className: "drop-shadow select-none truncate font-poetsen bg-gradient-to-b bg-clip-text text-transparent from-[#FFFFFF] to-[#ABFFFA] sm:[text-stroke:2px_#4486dc] sm:[-webkit-text-stroke:2px_#4486dc] [text-stroke:1px_#4486dc] [-webkit-text-stroke:1px_#4486dc] [filter:drop-shadow(5px_9px_18%_#13518155)] text-[16px] sm:text-[25.6px] md:text-[30.72px] lg:text-[32px]", children: g.rewards[0].prop_num.toLocaleString() }), g.rewards[1] && D.jsxs("span", { className: "select-none truncate font-arial font-[800] text-[12px] text-[#064b7f] sm:text-[19.2px] md:text-[23.04px] [text-shadow:0_0_2px_#C6EAFF,0_0_2px_#C6EAFF] [-webkit-text-shadow:0_0_2px_#C6EAFF,0_0_2px_#C6EAFF] lg:text-[24px]", children: ["Extra ", g.rewards[1].prop_num.toLocaleString()] })] }),
+                                                D.jsxs("button", { className: "relative w-199/726 z-2 flex flex-col items-center text-center flex-shrink-0 mr-2 mt-[2%] hover:cursor-pointer", onClick: () => M0(g), children: [D.jsx("img", { src: "/btn-1.png" }), D.jsxs("span", { className: "drop-shadow select-none absolute top-3/18 font-poetsen bg-gradient-to-b bg-clip-text text-transparent from-[#FFFFFF] to-[#FFF2B4] [text-stroke:.8px_#FD7100] [-webkit-text-stroke:0.8px_#FD7100] sm:[text-stroke:1.5px_#FD7100] sm:[-webkit-text-stroke:1.5px_#FD7100] text-[12px] sm:text-[19.2px] md:text-[23.04x] lg:text-[24px]", children: ["IDR ", (g.price / 1e3).toLocaleString('id-ID'), " K"] })] })
+                                            ]
+                                        }, g.product_id))
                                     ]
                                 })
                             ]
@@ -527,14 +435,7 @@ function Jp() {
                         className: "relative flex justify-center mt-8",
                         children: [
                             D.jsx("img", { src: "/footer.png", className: "w-full", alt: "" }),
-                            D.jsxs("div", {
-                                className: "absolute w-full flex justify-center bottom-124/228",
-                                children: [
-                                    D.jsx("img", { src: "/FB.png", className: "w-72/800 mx-1 hover:cursor-pointer", alt: "", onClick: () => window.open("https://www.facebook.com/neoparty.official", "_blank") }),
-                                    D.jsx("img", { src: "/IG.png", className: "w-72/800 mx-1 hover:cursor-pointer", alt: "", onClick: () => window.open("https://www.instagram.com/neoparty_official.id/", "_blank") }),
-                                    D.jsx("img", { src: "/TELE.png", className: "w-72/800 mx-1 hover:cursor-pointer", alt: "", onClick: () => window.open("https://t.me/neoparty_official", "_blank") })
-                                ]
-                            })
+                            D.jsxs("div", { className: "absolute w-full flex justify-center bottom-124/228", children: [D.jsx("img", { src: "/FB.png", className: "w-72/800 mx-1 hover:cursor-pointer", alt: "", onClick: () => window.open("https://www.facebook.com/neoparty.official", "_blank") }), D.jsx("img", { src: "/IG.png", className: "w-72/800 mx-1 hover:cursor-pointer", alt: "", onClick: () => window.open("https://www.instagram.com/neoparty_official.id/", "_blank") }), D.jsx("img", { src: "/TELE.png", className: "w-72/800 mx-1 hover:cursor-pointer", alt: "", onClick: () => window.open("https://t.me/neoparty_official", "_blank") })] })
                         ]
                     })
                 ]
@@ -548,5 +449,4 @@ function Jp() {
         ]
     })
 }
-
 wy.createRoot(document.getElementById("root")).render(D.jsx(Z.StrictMode, { children: D.jsx(Jp, {}) }));
