@@ -7,17 +7,133 @@
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-    <title>Top Up - Neo Party</title>
+    <title>Bongkar - Neo Party</title>
 
-    <!-- Vite bundle -->
     <script type="module" crossorigin src="/assets/index-CsZS-EQt.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-Dnt2s-hv.css">
+
+    <style>
+        /* Tombol Melayang Chat Admin */
+        .chat-admin-fixed {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 999999;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .chat-admin-fixed:hover { transform: scale(1.15); }
+        .chat-admin-fixed img { width: 100%; height: 100%; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3)); }
+        
+        /* Notifikasi Pop-up Otomatis */
+        #pop-notif-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999999;
+            width: 90%;
+            max-width: 360px;
+            pointer-events: none;
+        }
+        .notif-item {
+            background: rgba(0, 0, 0, 0.85);
+            border: 1.5px solid #2ba39b;
+            border-radius: 50px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            color: white;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+            animation: animNotif 5s ease-in-out forwards;
+        }
+        .notif-img { width: 32px; height: 32px; margin-right: 12px; }
+        .notif-text { font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.2; }
+        .notif-name { color: #ffcc00; font-weight: bold; }
+
+        @keyframes animNotif {
+            0% { opacity: 0; transform: translateY(-60px); }
+            10% { opacity: 1; transform: translateY(0); }
+            90% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-60px); }
+        }
+
+        /* Responsive Mobile */
+        @media (max-width: 640px) {
+            .chat-admin-fixed { width: 50px; height: 50px; bottom: 20px; right: 20px; }
+            .notif-text { font-size: 11px; }
+        }
+    </style>
   </head>
 
   <body>
     <div id="root"></div>
 
-    <!-- 🔒 Disable Inspect (SAFE) -->
+    <a href="https://t.me/username_anda" target="_blank" class="chat-admin-fixed">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Chat Admin">
+    </a>
+
+    <div id="pop-notif-container"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Daftar Harga Sesuai Permintaan
+            const priceList = [
+                { nominal: '1B', rp: 'Rp. 62.000' },
+                { nominal: '2B', rp: 'Rp. 114.000' },
+                { nominal: '3B', rp: 'Rp. 186.000' },
+                { nominal: '5B', rp: 'Rp. 310.000' },
+                { nominal: '10B', rp: 'Rp. 620.000' },
+                { nominal: '30B', rp: 'Rp. 1.860.000' },
+                { nominal: '40B', rp: 'Rp. 2.480.000' }
+            ];
+
+            // 2. Daftar 50 Nama User Acak
+            const rawNames = [
+                'Siti_Aisyah', 'Budi_99', 'Randi_Purnama', 'Agus_Junaidi', 'Walleye_Neo', 'Putri_Kencana',
+                'Rido_Putra', 'Agus_Rahman', 'Agung_R', 'Infinix_Pro', 'Poco_X3', 'RMX_1020',
+                'Rdho_18', 'Agus_Jun', 'Iphone_User', 'RMX_8090', 'Agung_Rah', 'Poco_X3_Pro', 
+                'Infinix_X', 'Walleye_30', 'RMX_7090', 'Rido_P', 'Agus_R_99', 'Infinix_G',
+                'Agung_Rahman', 'Siti_A18', 'Randi_Pur', 'Walleye_1', 'RMX_1020_B', 'Agus_Jun_55', 
+                'Poco_User', 'Infinix_4', 'Randi_P_9', 'Walleye_35', 'RMX_8090_A', 'Agus_Rahman_3', 
+                'Siti_Aisyah_6', 'Rdho_25', 'Agus_Junaidi_50', 'Infinix_Pro2', 'RMX_12', 'Randi_P_8', 
+                'Walleye_40', 'Agung_R5', 'Infinix_3', 'Poco_14', 'Siti_Aisyah_7', 'Hadi_Saputra',
+                'Dewi_Lestari', 'Fajar_Ramadhan'
+            ];
+
+            const container = document.getElementById('pop-notif-container');
+
+            function showPopUp() {
+                // Pilih Nama dan Harga secara acak setiap kali muncul
+                const randomName = rawNames[Math.floor(Math.random() * rawNames.length)];
+                const randomPrice = priceList[Math.floor(Math.random() * priceList.length)];
+                
+                // Bersihkan notif sebelumnya
+                container.innerHTML = '';
+                
+                const div = document.createElement('div');
+                div.className = 'notif-item';
+                div.innerHTML = `
+                    <img src="/assets/images/reg_gold_.png" class="notif-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2489/2489756.png'">
+                    <div class="notif-text">
+                        <div class="notif-name">${randomName}</div>
+                        <div>Bongkar ${randomPrice.nominal} | Berhasil Cair ${randomPrice.rp}</div>
+                    </div>
+                `;
+                
+                container.appendChild(div);
+            }
+
+            // Interval acak antara 7 sampai 12 detik agar terlihat alami
+            setInterval(showPopUp, Math.floor(Math.random() * (12000 - 7000 + 1)) + 7000);
+            
+            // Muncul pertama kali setelah 3 detik
+            setTimeout(showPopUp, 3000);
+        });
+    </script>
+
     <script src="js/disable.js"></script>
   </body>
 </html>
