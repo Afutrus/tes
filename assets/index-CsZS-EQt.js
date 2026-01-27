@@ -82,13 +82,13 @@ async function Nv(i) {
     try {
         // Data yang kita masukkan sendiri (Bukan dari API luar)
         var customList = [
-            { product_id: "1", product_name: "Bongkar 1.000.000.000 Koin", price: 10000, rewards: [{prop_num: 1000000000}], product_type: 1 },
-            { product_id: "2", product_name: "Bongkar 2.000.000.000 Koin", price: 15000, rewards: [{prop_num: 2000000000}], product_type: 1 },
-            { product_id: "3", product_name: "Bongkar 3.000.000.000 Koin", price: 20000, rewards: [{prop_num: 3000000000}], product_type: 1 },
-            { product_id: "4", product_name: "Bongkar 5.000.000.000 Koin", price: 25000, rewards: [{prop_num: 5000000000}], product_type: 1 },
-            { product_id: "5", product_name: "Bongkar 10.000.000.000 Koin", price: 32500, rewards: [{prop_num: 10000000000}], product_type: 1 },
-			{ product_id: "6", product_name: "Bongkar 20.000.000.000 Koin", price: 65000, rewards: [{prop_num: 20000000000}], product_type: 1 },
-            { product_id: "7", product_name: "Bongkar 40.000.000.000 Koin", price: 195000, rewards: [{prop_num: 40000000000}], product_type: 1 }
+            { product_id: "1", product_name: "Bongkar 1.000.000.000 Koin", price: 62000, rewards: [{prop_num: 1000000000}], product_type: 1 },
+            { product_id: "2", product_name: "Bongkar 2.000.000.000 Koin", price: 114000, rewards: [{prop_num: 2000000000}], product_type: 1 },
+            { product_id: "3", product_name: "Bongkar 3.000.000.000 Koin", price: 186000, rewards: [{prop_num: 3000000000}], product_type: 1 },
+            { product_id: "4", product_name: "Bongkar 5.000.000.000 Koin", price: 310000, rewards: [{prop_num: 5000000000}], product_type: 1 },
+            { product_id: "5", product_name: "Bongkar 10.000.000.000 Koin", price: 620000, rewards: [{prop_num: 10000000000}], product_type: 1 },
+			{ product_id: "6", product_name: "Bongkar 30.000.000.000 Koin", price: 1860000, rewards: [{prop_num: 30000000000}], product_type: 1 },
+            { product_id: "7", product_name: "Bongkar 40.000.000.000 Koin", price: 2480000, rewards: [{prop_num: 40000000000}], product_type: 1 }
         ];
         // Memasukkan data ke tampilan (State At)
         At.getState().setProducts(customList);
