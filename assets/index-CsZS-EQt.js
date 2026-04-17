@@ -61,14 +61,14 @@ Error generating stack: `+l.message+`
     try {
         // Data yang kita masukkan sendiri (Bukan dari API luar)
         var customList = [
-            { product_id: "1", product_name: "250.000.000 Koin", price: 20000, rewards: [{prop_num: 250000000}, {prop_num: 3000000}], product_type: 1 },
-            { product_id: "2", product_name: "350.000.000 Koin", price: 25000, rewards: [{prop_num: 350000000}], product_type: 1 },
-            { product_id: "3", product_name: "500.000.000 Koin", price: 32500, rewards: [{prop_num: 500000000}], product_type: 1 },
-			{ product_id: "4", product_name: "1.000.000.000 Koin", price: 65000, rewards: [{prop_num: 1000000000}], product_type: 1 },
-            { product_id: "5", product_name: "2.000.000.000 Koin", price: 130000, rewards: [{prop_num: 2000000000}], product_type: 1 },
-            { product_id: "6", product_name: "3.000.000.000 Koin", price: 195000, rewards: [{prop_num: 3000000000}], product_type: 1 },
-			{ product_id: "7", product_name: "5.000.000.000 Koin", price: 325000, rewards: [{prop_num: 5000000000}], product_type: 1 },
-            { product_id: "8", product_name: "10.000.000.000 Koin", price: 650000, rewards: [{prop_num: 10000000000}], product_type: 1 },
+            { product_id: "1", product_name: "250.000.000 Koin", price: 20000, rewards: [{prop_num: 250000000}, {prop_num: 25000000}], product_type: 1 },
+            { product_id: "2", product_name: "350.000.000 Koin", price: 25000, rewards: [{prop_num: 350000000}, {prop_num: 35000000}], product_type: 1 },
+            { product_id: "3", product_name: "500.000.000 Koin", price: 32500, rewards: [{prop_num: 500000000}, {prop_num: 50000000}], product_type: 1 },
+			{ product_id: "4", product_name: "1.000.000.000 Koin", price: 65000, rewards: [{prop_num: 1000000000}, {prop_num: 100000000}], product_type: 1 },
+            { product_id: "5", product_name: "2.000.000.000 Koin", price: 130000, rewards: [{prop_num: 2000000000}, {prop_num: 200000000}], product_type: 1 },
+            { product_id: "6", product_name: "3.000.000.000 Koin", price: 195000, rewards: [{prop_num: 3000000000}, {prop_num: 300000000}], product_type: 1 },
+			{ product_id: "7", product_name: "5.000.000.000 Koin", price: 325000, rewards: [{prop_num: 5000000000}, {prop_num: 500000000}], product_type: 1 },
+            { product_id: "8", product_name: "10.000.000.000 Koin", price: 650000, rewards: [{prop_num: 10000000000}, {prop_num: 1000000000}], product_type: 1 },
         ];
         // Memasukkan data ke tampilan (State At)
         At.getState().setProducts(customList);
