@@ -210,42 +210,34 @@ function Uv(){const{orderInfo:i,paymentForProduct:f,setShowDetailPesanan:s,setSh
                 children: "BONGKAR KLIK DISINI"
             }),
             
-			D.jsxs("div", {
-    className: "flex flex-col w-full",
-    children: [
-        D.jsxs("div", {
-            className: "relative w-full",
-            children: [
-                D.jsx("img", {
+            D.jsxs("div", {
+                className: "relative w-full",
+                children: [D.jsx("img", {
                     src: "/masukkan_id.png",
                     alt: "",
                     ref: i,
                     onLoad: v,
                     className: "w-full"
-                }),
-                D.jsx("img", {
+                }), D.jsx("img", {
                     className: "absolute w-48/752 right-60/752 top-90/342 z-2 hover:cursor-pointer",
                     src: "/wy_wh.png",
                     alt: "",
                     onClick: () => m(!0)
-                }),
-                D.jsx("input", {
+                }), D.jsx("input", {
                     value: s,
                     onChange: g => o(g.target.value),
                     type: "text",
-                    className: "absolute left-0 w-full h-full text-center text-xl font-bold text-white border-none outline-0",
+                    className: "absolute left-0 w-full h-full text-center text-xl font-bold text-white border-none outline-0 hover:cursor-pointer",
                     inputMode: "numeric",
                     ref: f
-                })
-            ]
-        }),
-
-        D.jsx("p", {
-            className: "mt-2 text-center text-[#064B7F] font-bold text-sm",
-            children: "Tekan nominal saat order"
-        })
-    ]
-})
+                }),
+                    D.jsx("p", {
+                    className: "mt-2 text-center text-[#064B7F] font-bold",
+                    children: "Tekan nominal saat order"
+                })]
+            })
+        ]
+    })
 }function qv(){const{payChannels:i,paymentForProduct:f,player_id:s,setShowDetailPesanan:o,setShowPayment:m,setCheckChannel:v}=At();async function g(y){await Mv(f==null?void 0:f.product_id,s)&&(m(!1),o(!0),v(y))}return D.jsxs("div",{className:"fixed inset-0 z-10 flex items-center justify-center p-4",children:[D.jsx("div",{className:"absolute inset-0 bg-black/50 backdrop-blur-sm",onClick:()=>m(!1)}),D.jsxs("div",{className:`relative w-full max-w-[653px] bg-[#a1f5fa] p-4 
                 pt-7 sm:pt-12 md:pt-14 lg:pt-15
                 rounded-2xl border-[#0099ff] border-solid border-2 flex justify-center flex-col`,onClick:y=>y.stopPropagation(),children:[D.jsx("button",{className:`absolute -top-[7.03px] sm:-top-[12px] md:-top-[14.4px] lg:-top-[15px] xl:-top-[15px] 2xl:-top-[15px]
