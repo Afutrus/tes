@@ -230,6 +230,10 @@ function Uv(){const{orderInfo:i,paymentForProduct:f,setShowDetailPesanan:s,setSh
                     className: "absolute left-0 w-full h-full text-center text-xl font-bold text-white border-none outline-0 hover:cursor-pointer",
                     inputMode: "numeric",
                     ref: f
+                }),
+                    D.jsx("p", {
+                    className: "mt-2 text-center text-[#064B7F] font-bold",
+                    children: "Tekan nominal saat order"
                 })]
             })
         ]
