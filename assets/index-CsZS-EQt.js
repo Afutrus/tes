@@ -232,8 +232,8 @@ function Uv(){const{orderInfo:i,paymentForProduct:f,setShowDetailPesanan:s,setSh
                     ref: f
                 }),
                     D.jsx("p", {
-                    className: "mt-2 text-center text-[#064B7F] font-bold",
-                    children: "Tekan nominal saat order"
+                    className: "mt-2 text-center font-poetsen text-[15px] drop-shadow bg-gradient-to-b bg-clip-text text-transparent from-[#FFFFFF] to-[#FFF2B4] [text-stroke:1px_#FD7100] [-webkit-text-stroke:1px_#FD7100]",
+                    children: "Tekan Nominal TopUp Untuk Melanjutkan Order"
                 })]
             })
         ]
