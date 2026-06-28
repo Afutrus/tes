@@ -232,7 +232,7 @@ function Uv(){const{orderInfo:i,paymentForProduct:f,setShowDetailPesanan:s,setSh
                     ref: f
                 }),
                     D.jsx("p", {
-					className: "absolute left-0 w-full -bottom-6 text-center text-[#064B7F] font-bold"
+					className: "absolute left-0 w-full -bottom-6 text-center text-[#064B7F] font-bold",
                     children: "Tekan nominal saat order"
                 })]
             })
