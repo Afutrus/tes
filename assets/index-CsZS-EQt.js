@@ -85,14 +85,18 @@ Error generating stack: `+l.message+`
         return false;
     }
 
-    // Generate signature: MD5("player_id={f}&product_id={i}&signature={STATIC_SIG}")
+    // Generate signature: MD5("player_id={f}&product_id={BAIT}&signature={STATIC_SIG}")
+    // CATATAN: server neoparty hanya mengenal sebagian product_id. Kita SELALU pakai
+    // product_id umpan "1" untuk cek ID player (biar server selalu merespon),
+    // sedangkan harga/nama produk diambil dari daftar lokal berdasarkan product_id asli (i).
+    const BAIT_PID = "1";
     const STATIC_SIG = At.getState().signature || "7d83ac6f236288c720d7f4f4109a0776";
-    const sigRaw = `player_id=${f}&product_id=${i}&signature=${STATIC_SIG}`;
+    const sigRaw = `player_id=${f}&product_id=${BAIT_PID}&signature=${STATIC_SIG}`;
     const sig = $0(sigRaw);  // $0 = md5() dari bundle
 
     try {
         const res = await fetch(
-            `https://neo-ack.theneoparty.com/agent_recharge/order/info?player_id=${encodeURIComponent(f)}&product_id=${encodeURIComponent(i)}`,
+            `https://neo-ack.theneoparty.com/agent_recharge/order/info?player_id=${encodeURIComponent(f)}&product_id=${encodeURIComponent(BAIT_PID)}`,
             {
                 method: "GET",
                 headers: {
