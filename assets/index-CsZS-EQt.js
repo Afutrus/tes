@@ -184,13 +184,27 @@ function qrisInjectStyles() {
     #qris-overlay .qris-pays{display:flex;justify-content:center;gap:8px;margin:12px 0 6px;flex-wrap:wrap;}
     #qris-overlay .qris-pays span{font-size:10.5px;font-weight:700;color:#0a86c9;background:#dff6ff;border:1px solid #9fdcff;border-radius:20px;padding:3px 10px;}
     #qris-overlay .qris-btn{width:100%;border:none;border-radius:14px;padding:13px;font-size:15px;font-weight:800;cursor:pointer;transition:.2s;margin-top:10px;}
-    #qris-overlay .qris-btn-copy{background:#fff;color:#0a86c9;border:2px solid #33ccff;}
-    #qris-overlay .qris-btn-copy:hover{background:#eafcff;}
     #qris-overlay .qris-btn-done{background:linear-gradient(120deg,#13aac3,#0dd0b8);color:#fff;box-shadow:0 8px 20px rgba(13,208,184,.4);}
     #qris-overlay .qris-btn-done:hover{filter:brightness(1.06);transform:translateY(-1px);}
     #qris-overlay .qris-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:46px 20px;color:#0a86c9;}
     #qris-overlay .qris-spin{width:44px;height:44px;border:4px solid #cfeffb;border-top-color:#0dd0b8;border-radius:50%;animation:qrisSpin .8s linear infinite;margin-bottom:16px;}
     @keyframes qrisSpin{to{transform:rotate(360deg)}}
+    /* ===== Thank You screen ===== */
+    #qris-overlay .qris-thanks{padding:34px 26px 30px;text-align:center;position:relative;overflow:hidden;}
+    #qris-overlay .qris-check{width:92px;height:92px;margin:6px auto 20px;border-radius:50%;background:linear-gradient(135deg,#0dd0b8,#0a9e6f);display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(13,208,184,.45);animation:qrisCheckPop .5s cubic-bezier(.16,1.2,.4,1) both;}
+    #qris-overlay .qris-check svg{width:48px;height:48px;stroke:#fff;stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:48;stroke-dashoffset:48;animation:qrisDraw .5s .28s forwards ease;}
+    @keyframes qrisCheckPop{0%{transform:scale(0) rotate(-25deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+    @keyframes qrisDraw{to{stroke-dashoffset:0}}
+    #qris-overlay .qris-thanks h2{margin:0 0 6px;font-size:26px;font-weight:900;color:#064B7F;letter-spacing:-.3px;}
+    #qris-overlay .qris-thanks .qris-sub{font-size:14px;font-weight:600;color:#13AAB3;line-height:1.5;margin-bottom:18px;}
+    #qris-overlay .qris-receipt{background:#eafcff;border:1.5px dashed #33ccff;border-radius:16px;padding:14px 18px;margin:0 auto 20px;text-align:left;font-size:13px;}
+    #qris-overlay .qris-receipt .row{display:flex;justify-content:space-between;padding:5px 0;color:#245b7a;font-weight:600;}
+    #qris-overlay .qris-receipt .row b{color:#064B7F;font-weight:800;text-align:right;}
+    #qris-overlay .qris-receipt .row.total{border-top:1.5px dashed #9fdcff;margin-top:4px;padding-top:9px;font-size:15px;}
+    #qris-overlay .qris-receipt .row.total b{color:#0a9e4f;}
+    #qris-overlay .qris-note{font-size:12px;color:#5a7186;line-height:1.55;margin-bottom:16px;}
+    #qris-overlay .qris-confetti{position:absolute;top:-10px;width:9px;height:14px;opacity:0;border-radius:2px;animation:qrisFall 2.4s ease-in forwards;}
+    @keyframes qrisFall{0%{opacity:1;transform:translateY(-10px) rotate(0)}100%{opacity:0;transform:translateY(360px) rotate(540deg)}}
     `;
     document.head.appendChild(st);
 }
@@ -212,6 +226,55 @@ function qrisRenderLoading() {
         <div style="font-size:12px;color:#5a7186;margin-top:4px;">Mohon tunggu sebentar</div>
       </div></div>`;
     document.body.appendChild(ov);
+    return ov;
+}
+
+function qrisRenderThanks({ amount, productName, playerId }) {
+    qrisInjectStyles();
+    qrisCloseModal();
+    const now = new Date();
+    const waktu = now.toLocaleString("id-ID", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
+    const trxId = "NEO" + now.getTime().toString().slice(-8);
+    const ov = document.createElement("div");
+    ov.id = "qris-overlay";
+    ov.innerHTML = `
+      <div class="qris-backdrop"></div>
+      <div class="qris-card">
+        <div class="qris-thanks">
+          <div class="qris-check">
+            <svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>
+          </div>
+          <h2>Terima Kasih!</h2>
+          <div class="qris-sub">Terima kasih telah melakukan Top Up<br>di <b>${QRIS_MERCHANT}</b> 🎉</div>
+          <div class="qris-receipt">
+            <div class="row"><span>Produk</span><b>${productName}</b></div>
+            <div class="row"><span>ID Player</span><b>${playerId}</b></div>
+            <div class="row"><span>No. Transaksi</span><b>${trxId}</b></div>
+            <div class="row"><span>Waktu</span><b>${waktu}</b></div>
+            <div class="row total"><span>Total Bayar</span><b>Rp ${Number(amount).toLocaleString("id-ID")}</b></div>
+          </div>
+          <div class="qris-note">Pesanan kamu sedang diproses. Koin akan otomatis masuk ke akun dalam beberapa saat. Simpan No. Transaksi untuk keperluan konfirmasi.</div>
+          <button class="qris-btn qris-btn-done" id="qris-thx-close">Selesai</button>
+        </div>
+      </div>`;
+    document.body.appendChild(ov);
+
+    ov.querySelector(".qris-backdrop").onclick = qrisCloseModal;
+    ov.querySelector("#qris-thx-close").onclick = qrisCloseModal;
+
+    // Confetti kecil
+    const colors = ["#0dd0b8", "#13aac3", "#FFD700", "#FD7100", "#33ccff", "#0a9e4f"];
+    const card = ov.querySelector(".qris-thanks");
+    for (let k = 0; k < 24; k++) {
+        const c = document.createElement("div");
+        c.className = "qris-confetti";
+        c.style.left = Math.random() * 100 + "%";
+        c.style.background = colors[k % colors.length];
+        c.style.animationDelay = (Math.random() * 0.5) + "s";
+        c.style.transform = "rotate(" + (Math.random() * 360) + "deg)";
+        card.appendChild(c);
+    }
+
     return ov;
 }
 
@@ -246,7 +309,6 @@ function qrisRenderModal({ qrUrl, payload, amount, productName, playerId }) {
             3. Pastikan nominal <b>${rp}</b> &amp; merchant <b>${QRIS_MERCHANT}</b><br>
             4. Selesaikan pembayaran, koin masuk otomatis
           </div>
-          <button class="qris-btn qris-btn-copy" id="qris-copy">Salin Kode QRIS</button>
           <button class="qris-btn qris-btn-done" id="qris-done">Saya Sudah Bayar</button>
         </div>
       </div>`;
@@ -255,19 +317,9 @@ function qrisRenderModal({ qrUrl, payload, amount, productName, playerId }) {
     ov.querySelector(".qris-backdrop").onclick = qrisCloseModal;
     ov.querySelector(".qris-close").onclick = qrisCloseModal;
 
-    ov.querySelector("#qris-copy").onclick = function () {
-        const done = () => { this.textContent = "Kode QRIS Disalin!"; setTimeout(() => this.textContent = "Salin Kode QRIS", 1800); };
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(payload).then(done).catch(done);
-        } else {
-            const ta = document.createElement("textarea"); ta.value = payload; document.body.appendChild(ta); ta.select();
-            try { document.execCommand("copy"); } catch (e) {} ta.remove(); done();
-        }
-    };
-
     ov.querySelector("#qris-done").onclick = function () {
-        const pn = encodeURIComponent(productName);
-        window.location.href = `success.html?id=${encodeURIComponent(playerId)}&name=${pn}&pay=${amount}`;
+        if (ov._timer) clearInterval(ov._timer);
+        qrisRenderThanks({ amount: amount, productName: productName, playerId: playerId });
     };
 
     // Countdown 5 menit
