@@ -76,60 +76,75 @@ Error generating stack: `+l.message+`
         console.log("Error loading products");
     }
 }async function Mv(i, f) {
-    if (i === void 0 || f === void 0) return At.getState().setPublicErrorBox({
-        show: !0,
-        msg: "Gagal membaca informasi!"
-    }), !1;
+    // i = product_id, f = player_id
+    if (i === void 0 || f === void 0) {
+        At.getState().setPublicErrorBox({
+            show: true,
+            msg: "Gagal membaca informasi, silakan coba lagi!"
+        });
+        return false;
+    }
 
-    // Tetap gunakan "1" sebagai pancingan agar server merespon
-    const dummyId = "1";
-
-    const s = `player_id=${f}&product_id=${dummyId}&signature=${At.getState().signature}`,
-        o = $0(s);
+    // Generate signature: MD5("player_id={f}&product_id={i}&signature={STATIC_SIG}")
+    const STATIC_SIG = At.getState().signature || "7d83ac6f236288c720d7f4f4109a0776";
+    const sigRaw = `player_id=${f}&product_id=${i}&signature=${STATIC_SIG}`;
+    const sig = $0(sigRaw);  // $0 = md5() dari bundle
 
     try {
-        const m = await Ji("/agent_recharge/order/info", {
-            baseURL: "https://idn-ack.neopartyworld.com",
-            headers: {
-                Signature: o
-            },
-            query: {
-                player_id: f,
-                product_id: dummyId
+        const res = await fetch(
+            `https://neo-ack.theneoparty.com/agent_recharge/order/info?player_id=${encodeURIComponent(f)}&product_id=${encodeURIComponent(i)}`,
+            {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                    "Signature": sig
+                }
             }
-        });
+        );
 
-        if (m.En === 0) {
-            // Ambil data produk ASLI (VIP 1 / Koin) dari data lokal kita
+        const m = await res.json();
+
+        if (m.En === 0 && m.Data) {
+            const d = m.Data;
+
+            // Ambil produk lokal untuk harga/nama (fallback produk lokal - sesuai permintaan)
             const selectedProduct = At.getState().products.find(p => p.product_id == i);
 
             const updatedOrderInfo = {
-                ...m.Data, // Data dasar dari server
-                player_nick: m.Data.player_nick, // Nama player asli
-
-                // PERBAIKAN UTAMA DI SINI:
-                // Kita paksa 'gift_name' untuk menggunakan nama produk kita juga.
-                // Ini karena Paket VIP (Type 2) membaca 'gift_name' di popup, bukan 'product_name'.
-                product_name: selectedProduct ? selectedProduct.product_name : m.Data.product_name,
-                gift_name: selectedProduct ? selectedProduct.product_name : m.Data.gift_name,
-
-                amount: selectedProduct ? selectedProduct.price : m.Data.amount,
-                product_type: selectedProduct ? selectedProduct.product_type : 1
+                player_id: d.player_id,
+                player_nick: d.player_nick,   // ←Nick dari API baru
+                level: undefined,
+                vip: undefined,
+                coin: undefined,
+                product_name: selectedProduct?.product_name,
+                gift_name: selectedProduct?.gift_name || selectedProduct?.product_name,
+                amount: selectedProduct?.price,
+                product_type: selectedProduct?.product_type || 1
             };
 
             At.getState().setOrderInfo(updatedOrderInfo);
-            return !0;
-        } else {
-            return At.getState().setPublicErrorBox({
-                show: !0,
-                msg: m.En === 656 ? "ID Pengguna tidak ditemukan!" : "Gagal memulai pembayaran!"
-            }), !1;
+            return true;
         }
-    } catch {
-        return At.getState().setPublicErrorBox({
-            show: !0,
+
+        if (m.En === 656 || m.En === 182) {
+            At.getState().setPublicErrorBox({
+                show: true,
+                msg: "ID Pengguna tidak ditemukan!"
+            });
+        } else {
+            At.getState().setPublicErrorBox({
+                show: true,
+                msg: "Gagal memulai pembayaran, silakan coba lagi!"
+            });
+        }
+        return false;
+
+    } catch (e) {
+        At.getState().setPublicErrorBox({
+            show: true,
             msg: "Koneksi bermasalah saat cek ID!"
-        }), !1;
+        });
+        return false;
     }
 }
 // ================= KONFIGURASI QRIS STATIS =================
