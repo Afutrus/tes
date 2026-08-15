@@ -190,6 +190,9 @@ function qrisInjectStyles() {
     #qris-overlay .qris-btn{width:100%;border:none;border-radius:14px;padding:13px;font-size:15px;font-weight:800;cursor:pointer;transition:.2s;margin-top:10px;}
     #qris-overlay .qris-btn-done{background:linear-gradient(120deg,#13aac3,#0dd0b8);color:#fff;box-shadow:0 8px 20px rgba(13,208,184,.4);}
     #qris-overlay .qris-btn-done:hover{filter:brightness(1.06);transform:translateY(-1px);}
+    #qris-overlay .qris-btn-save{background:#fff;color:#0a86c9;border:2px solid #33ccff;display:flex;align-items:center;justify-content:center;gap:8px;}
+    #qris-overlay .qris-btn-save:hover{background:#eafcff;}
+    #qris-overlay .qris-btn-save svg{width:18px;height:18px;stroke:currentColor;stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round;}
     #qris-overlay .qris-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:46px 20px;color:#0a86c9;}
     #qris-overlay .qris-spin{width:44px;height:44px;border:4px solid #cfeffb;border-top-color:#0dd0b8;border-radius:50%;animation:qrisSpin .8s linear infinite;margin-bottom:16px;}
     @keyframes qrisSpin{to{transform:rotate(360deg)}}
@@ -282,6 +285,110 @@ function qrisRenderThanks({ amount, productName, playerId }) {
     return ov;
 }
 
+// Buat kartu QRIS lengkap (header + QR + nominal + merchant) jadi 1 gambar PNG
+// lalu download ke galeri/perangkat user. Tidak butuh library eksternal.
+function qrisDownloadImage({ qrUrl, amount, productName, playerId }) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = function () {
+            try {
+                const W = 720, H = 1040;
+                const cv = document.createElement("canvas");
+                cv.width = W; cv.height = H;
+                const ctx = cv.getContext("2d");
+
+                // Background gradient lembut
+                const bg = ctx.createLinearGradient(0, 0, 0, H);
+                bg.addColorStop(0, "#ffffff");
+                bg.addColorStop(1, "#eafcff");
+                ctx.fillStyle = bg;
+                ctx.fillRect(0, 0, W, H);
+
+                // Header bar
+                const hg = ctx.createLinearGradient(0, 0, W, 0);
+                hg.addColorStop(0, "#0a86c9");
+                hg.addColorStop(0.55, "#13aac3");
+                hg.addColorStop(1, "#0dd0b8");
+                ctx.fillStyle = hg;
+                ctx.fillRect(0, 0, W, 150);
+                ctx.fillStyle = "#ffffff";
+                ctx.textAlign = "center";
+                ctx.font = "800 42px Inter, Arial, sans-serif";
+                ctx.fillText("Pembayaran QRIS", W / 2, 72);
+                ctx.font = "600 26px Inter, Arial, sans-serif";
+                ctx.fillText(QRIS_MERCHANT, W / 2, 112);
+
+                // Produk + nominal
+                ctx.fillStyle = "#0a5b8a";
+                ctx.font = "700 28px Inter, Arial, sans-serif";
+                ctx.fillText(productName, W / 2, 212);
+                ctx.fillStyle = "#064B7F";
+                ctx.font = "900 60px Inter, Arial, sans-serif";
+                ctx.fillText("Rp " + Number(amount).toLocaleString("id-ID"), W / 2, 282);
+                ctx.fillStyle = "#5a7186";
+                ctx.font = "600 24px Inter, Arial, sans-serif";
+                ctx.fillText("ID Player: " + playerId, W / 2, 322);
+
+                // Kotak QR
+                const qs = 440, qx = (W - qs) / 2, qy = 370;
+                ctx.fillStyle = "#ffffff";
+                ctx.strokeStyle = "#0dd0b8";
+                ctx.lineWidth = 8;
+                const r = 28;
+                ctx.beginPath();
+                ctx.moveTo(qx - 24 + r, qy - 24);
+                ctx.arcTo(qx - 24 + qs + 48, qy - 24, qx - 24 + qs + 48, qy - 24 + qs + 48, r);
+                ctx.arcTo(qx - 24 + qs + 48, qy - 24 + qs + 48, qx - 24, qy - 24 + qs + 48, r);
+                ctx.arcTo(qx - 24, qy - 24 + qs + 48, qx - 24, qy - 24, r);
+                ctx.arcTo(qx - 24, qy - 24, qx - 24 + qs + 48, qy - 24, r);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+                ctx.drawImage(img, qx, qy, qs, qs);
+
+                // Badge QRIS
+                ctx.fillStyle = "#0a86c9";
+                ctx.font = "900 30px Inter, Arial, sans-serif";
+                ctx.fillText("QRIS", W / 2, qy - 44);
+
+                // Metode
+                ctx.fillStyle = "#13AAB3";
+                ctx.font = "700 24px Inter, Arial, sans-serif";
+                ctx.fillText("DANA · GoPay · OVO · ShopeePay · m-Banking", W / 2, qy + qs + 78);
+
+                // Instruksi
+                ctx.fillStyle = "#245b7a";
+                ctx.font = "600 22px Inter, Arial, sans-serif";
+                ctx.fillText("Scan kode ini dari aplikasi e-wallet / m-banking", W / 2, qy + qs + 130);
+                ctx.fillText("Pastikan nominal & merchant sudah sesuai", W / 2, qy + qs + 162);
+
+                cv.toBlob(function (blob) {
+                    if (!blob) return reject(new Error("blob null"));
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    const safe = String(productName).replace(/[^a-z0-9]+/gi, "-");
+                    a.href = url;
+                    a.download = `QRIS-${QRIS_MERCHANT.replace(/\s+/g, "")}-${safe}-${playerId}.png`;
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    setTimeout(() => URL.revokeObjectURL(url), 4000);
+                    resolve();
+                }, "image/png");
+            } catch (e) {
+                reject(e);
+            }
+        };
+        img.onerror = function () {
+            // Fallback: kalau canvas gagal (CORS), buka QR polos di tab baru agar bisa long-press simpan
+            try { window.open(qrUrl, "_blank"); resolve(); }
+            catch (e) { reject(e); }
+        };
+        img.src = qrUrl;
+    });
+}
+
 function qrisRenderModal({ qrUrl, payload, amount, productName, playerId }) {
     qrisInjectStyles();
     qrisCloseModal();
@@ -313,6 +420,10 @@ function qrisRenderModal({ qrUrl, payload, amount, productName, playerId }) {
             3. Pastikan nominal <b>${rp}</b> &amp; merchant <b>${QRIS_MERCHANT}</b><br>
             4. Selesaikan pembayaran, koin masuk otomatis
           </div>
+          <button class="qris-btn qris-btn-save" id="qris-save">
+            <svg viewBox="0 0 24 24"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
+            Simpan QRIS ke Galeri
+          </button>
           <button class="qris-btn qris-btn-done" id="qris-done">Saya Sudah Bayar</button>
         </div>
       </div>`;
@@ -324,6 +435,19 @@ function qrisRenderModal({ qrUrl, payload, amount, productName, playerId }) {
     ov.querySelector("#qris-done").onclick = function () {
         if (ov._timer) clearInterval(ov._timer);
         qrisRenderThanks({ amount: amount, productName: productName, playerId: playerId });
+    };
+
+    ov.querySelector("#qris-save").onclick = function () {
+        const btn = this;
+        const orig = btn.innerHTML;
+        btn.innerHTML = "Menyiapkan gambar...";
+        btn.style.pointerEvents = "none";
+        qrisDownloadImage({ qrUrl, amount, productName, playerId })
+            .then(() => { btn.innerHTML = "✓ Tersimpan"; })
+            .catch(() => { btn.innerHTML = "Gagal, coba lagi"; })
+            .finally(() => {
+                setTimeout(() => { btn.innerHTML = orig; btn.style.pointerEvents = "auto"; }, 2000);
+            });
     };
 
     // Countdown 5 menit
