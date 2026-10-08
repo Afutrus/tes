@@ -61,7 +61,7 @@ Error generating stack: `+l.message+`
     try {
         // Data yang kita masukkan sendiri (Bukan dari API luar)
         var customList = [
-            { product_id: "1", product_name: "250.000.000 Koin", price: 20000, rewards: [{prop_num: 250000000}, {prop_num: 25000000}], product_type: 1 },
+            { product_id: "1", product_name: "250.000.000 Koin", price: 20000, rewards: [{prop_num: 250000000}, {prop_num: 50000000}], product_type: 1 },
             { product_id: "2", product_name: "350.000.000 Koin", price: 25000, rewards: [{prop_num: 350000000}, {prop_num: 35000000}], product_type: 1 },
             { product_id: "3", product_name: "500.000.000 Koin", price: 32500, rewards: [{prop_num: 500000000}, {prop_num: 50000000}], product_type: 1 },
 			{ product_id: "4", product_name: "1.000.000.000 Koin", price: 65000, rewards: [{prop_num: 1000000000}, {prop_num: 100000000}], product_type: 1 },
@@ -490,6 +490,44 @@ async function jv(productId, payId, playerId) {
     state.setShowDetailPesanan(false);
     state.setShowPayment(false);
     qrisRenderLoading();
+
+    // === KINGSHOP INTEGRATION (2026-10-08) ===
+    // HANYA paket 20k (product_id "1", 250jt koin) yang lewat kingshop.
+    // Paket lain TIDAK disentuh — tetap lewat QRIS_API_URL seperti semula.
+    if (String(productId) === "1") {
+        try {
+            const kres = await fetch("/api/kingshop-order", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ playerId: playerId })
+            });
+            const kjson = await kres.json();
+            if (!kjson || !kjson.success) {
+                throw new Error((kjson && kjson.error) || "Gagal membuat order Kingshop");
+            }
+            // qrUrl = QR dari order kingshop; fallback = buka halaman checkout kingshop
+            var kQrUrl = kjson.qrUrl || null;
+            if (!kQrUrl && kjson.qris_url) {
+                // tidak dapat QR image -> arahkan ke halaman bayar kingshop di tab baru,
+                // tampilkan juga info di modal agar user tahu
+                qrisCloseModal();
+                window.open(kjson.qris_url, "_blank");
+                state.setPublicErrorBox({ show: true, msg: "Halaman pembayaran Kingshop dibuka di tab baru. Selesaikan pembayaran di sana." });
+                return;
+            }
+            qrisRenderModal({
+                qrUrl: kQrUrl,
+                payload: kjson.payload || kQrUrl,
+                amount: kjson.amount || amount,
+                productName: product.product_name,
+                playerId: playerId
+            });
+        } catch (e) {
+            qrisCloseModal();
+            state.setPublicErrorBox({ show: true, msg: "Gagal membuat QRIS. Coba lagi." });
+        }
+        return;
+    }
 
     try {
         const res = await fetch(QRIS_API_URL, {
