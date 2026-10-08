@@ -15,7 +15,7 @@
  * Env (Vercel -> Settings -> Environment Variables):
  *   KINGSHOP_PROXY_URL   mis. http://104.245.34.139:8787 (tanpa trailing slash)
  *   KINGSHOP_PROXY_KEY   sama dengan API_KEY di /opt/kingshop-proxy/.env
- */
+ */ 
 
 const PROXY_TIMEOUT_MS = 10000;   // per-request ke proxy
 const POLL_INTERVAL_MS = 2500;    // jeda antar polling
