@@ -1,186 +1,155 @@
 /**
- * Vercel Serverless Function: Kingshop order proxy
+ * Vercel Serverless Function: Kingshop order proxy (forwarder).
  *
- * POST /api/kingshop-order  { playerId: "3329510" }
+ * Frontend (bundle) tetap POST ke /api/kingshop-order { playerId }.
+ * Function ini:
+ *   1. submit async ke proxy  -> POST /api/order        => { order_id }
+ *   2. polling status          -> GET  /api/order/:id    sampai terminal
+ *   3. kembalikan bentuk response yang sama seperti sebelumnya
+ *      { success, qrUrl, payload, amount, transaction_id, qris_url, ... }
+ *      agar frontend tidak perlu diubah.
  *
- * Creates a 20K top-up order on cuan2.kingshop.live and returns the QRIS
- * data so the Neo Party frontend can render it in its own QRIS modal.
+ * Async + polling dipakai supaya tidak tergantung pada satu request sync
+ * yang panjang (batas eksekusi Vercel ±60 detik).
  *
- * Flow:
- *   1. GET https://cuan2.kingshop.live/topup  (session cookie + CSRF _token)
- *   2. POST form { _token, target_player, phone, productId } -> { qris_url, transaction_id }
- *   3. GET qris_url page -> extract QR image URL or raw QRIS payload
- *
- * Env (optional, improves reliability):
- *   KINGSHOP_PRODUCT_ID  default prd-01KXMTBE6QY2CWXQD6MB2BX700
- *   KINGSHOP_AMOUNT      default 20000
+ * Env (Vercel -> Settings -> Environment Variables):
+ *   KINGSHOP_PROXY_URL   mis. http://104.245.34.139:8787 (tanpa trailing slash)
+ *   KINGSHOP_PROXY_KEY   sama dengan API_KEY di /opt/kingshop-proxy/.env
  */
 
-const KINGSHOP_BASE = 'https://cuan2.kingshop.live';
-const PRODUCT_ID = process.env.KINGSHOP_PRODUCT_ID || 'prd-01KXMTBE6QY2CWXQD6MB2BX700';
-const AMOUNT = parseInt(process.env.KINGSHOP_AMOUNT || '20000', 10);
+const PROXY_TIMEOUT_MS = 10000;   // per-request ke proxy
+const POLL_INTERVAL_MS = 2500;    // jeda antar polling
+const POLL_BUDGET_MS = 50000;     // total budget polling (di bawah batas Vercel)
 
-const UA =
-  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
+const ALLOWED_ORIGINS = [
+  'https://topup.neoparty.web.id',
+  'http://localhost:3000',
+  'http://localhost:5173',
+];
 
-// ---- minimal cookie jar ----
-class Jar {
-  constructor() { this.cookies = {}; }
-  store(setCookies) {
-    if (!setCookies) return;
-    const arr = Array.isArray(setCookies) ? setCookies : [setCookies];
-    for (const c of arr) {
-      const pair = c.split(';')[0];
-      const i = pair.indexOf('=');
-      if (i > 0) this.cookies[pair.slice(0, i).trim()] = pair.slice(i + 1).trim();
-    }
-  }
-  header() {
-    return Object.entries(this.cookies).map(([k, v]) => `${k}=${v}`).join('; ');
-  }
+function cors(req, res) {
+  const origin = req.headers.origin || '';
+  res.setHeader('Access-Control-Allow-Origin',
+    ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0]);
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 }
 
-async function req(url, jar, opts = {}) {
-  const headers = {
-    'User-Agent': UA,
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
-    'Accept-Language': 'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7',
-    ...(opts.headers || {}),
-  };
-  const ck = jar.header();
-  if (ck) headers['Cookie'] = ck;
-  const res = await fetch(url, { ...opts, headers, redirect: 'follow' });
-  // Node fetch: getSetCookie() available in undici
-  const setCookies = typeof res.headers.getSetCookie === 'function'
-    ? res.headers.getSetCookie()
-    : res.headers.get('set-cookie');
-  jar.store(setCookies);
-  return res;
-}
-
-function extractToken(html) {
-  // Laravel: <input type="hidden" name="_token" value="...">
-  let m = html.match(/name="_token"[^>]*value="([^"]+)"/) ||
-          html.match(/value="([^"]+)"[^>]*name="_token"/) ||
-          html.match(/name="_token"\s+value='([^']+)'/);
-  if (m) return m[1];
-  // meta csrf-token
-  m = html.match(/<meta\s+name="csrf-token"\s+content="([^"]+)"/);
-  if (m) return m[1];
-  // JS-embedded
-  m = html.match(/["_']_token["_']\s*:\s*["']([^"']+)["']/);
-  if (m) return m[1];
-  return null;
-}
-
-function extractQr(html, pageUrl) {
-  // 0) base64 data-uri QR image (umum untuk QRIS)
-  const b64 = html.match(/data:image\/(png|jpeg);base64,[A-Za-z0-9+/=]{2000,}/);
-  if (b64) return { qrUrl: b64[0], kind: 'base64' };
-
-  // 1) direct <img> whose src looks like a QR code
-  const imgs = [...html.matchAll(/<img[^>]+src="([^"]+)"/gi)].map(m => m[1]);
-  const qrImg = imgs.find(s => /qr/i.test(s) && !/logo|icon|sprite/i.test(s));
-  if (qrImg) return { qrUrl: new URL(qrImg, pageUrl).href, kind: 'img' };
-
-  // 2) raw QRIS EMV payload (starts with 00020101)
-  const emv = html.match(/00020101[0-9A-Za-z.\- ]{60,400}/);
-  if (emv) {
-    const payload = emv[0].trim();
-    return {
-      qrUrl: 'https://api.qrserver.com/v1/create-qr-code/?size=500x500&margin=10&data=' + encodeURIComponent(payload),
-      payload, kind: 'emv'
-    };
-  }
-
-  // 3) JSON-ish qr fields
-  const jm = html.match(/"(qr_code_url|qr_url|qris_image|qrImage)"\s*:\s*"([^"]+)"/);
-  if (jm) return { qrUrl: jm[2].replace(/\\\//g, '/'), kind: 'json' };
-
-  return null;
-}
-
-module.exports = async (req2, res2) => {
-  // CORS: only allow our own origins
-  const origin = req2.headers.origin || '';
-  const allowed = ['', 'https://topup.neoparty.web.id', 'http://localhost:3000', 'http://localhost:5173'];
-  const allowOrigin = allowed.includes(origin) ? origin : 'https://topup.neoparty.web.id';
-  res2.setHeader('Access-Control-Allow-Origin', allowOrigin);
-  res2.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res2.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  if (req2.method === 'OPTIONS') return res2.status(200).end();
-  if (req2.method !== 'POST') return res2.status(405).json({ success: false, error: 'Method not allowed' });
-
-  let body = req2.body;
-  if (typeof body === 'string') { try { body = JSON.parse(body); } catch { body = {}; } }
-  const playerId = String((body && body.playerId) || '').trim();
-  if (!playerId) return res2.status(400).json({ success: false, error: 'playerId wajib diisi' });
-  if (!/^\d{3,20}$/.test(playerId)) return res2.status(400).json({ success: false, error: 'Format ID Player tidak valid' });
-
-  const jar = new Jar();
+async function proxyFetch(proxyUrl, proxyKey, path, opts = {}) {
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), PROXY_TIMEOUT_MS);
   try {
-    // 1) session + CSRF
-    const g = await req(`${KINGSHOP_BASE}/topup`, jar);
-    const html = await g.text();
-    if (/Just a moment|cf-challenge|Attention Required/i.test(html) || g.status === 403) {
-      return res2.status(502).json({
-        success: false, error: 'Kingshop memblokir akses server (Cloudflare).',
-        hint: 'Gunakan API key resmi kingshop bila tersedia, atau jalankan proxy ini dari IP yang lolos verifikasi.'
-      });
-    }
-    const token = extractToken(html);
-    if (!token) {
-      return res2.status(502).json({ success: false, error: 'CSRF token kingshop tidak ditemukan. Struktur halaman mungkin berubah.' });
-    }
-
-    // 2) create order (same shape as browser form)
-    const form = new URLSearchParams();
-    form.append('_token', token);
-    form.append('target_player', playerId);
-    form.append('phone', '');
-    form.append('productId', PRODUCT_ID);
-
-    const p = await req(`${KINGSHOP_BASE}/topup`, jar, {
-      method: 'POST',
+    const r = await fetch(`${proxyUrl}${path}`, {
+      ...opts,
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Accept': 'application/json, text/plain, */*',
-        'X-Requested-With': 'XMLHttpRequest',
-        'Origin': KINGSHOP_BASE,
-        'Referer': `${KINGSHOP_BASE}/topup`,
+        'Content-Type': 'application/json',
+        'X-API-Key': proxyKey,
+        ...(opts.headers || {}),
       },
-      body: form.toString(),
+      signal: ctrl.signal,
     });
-    const ptext = await p.text();
-    let order;
-    try { order = JSON.parse(ptext); }
-    catch { return res2.status(502).json({ success: false, error: 'Respon kingshop bukan JSON', detail: ptext.slice(0, 200) }); }
+    const data = await r.json().catch(() => ({}));
+    return { status: r.status, data };
+  } finally {
+    clearTimeout(t);
+  }
+}
 
-    if (!order || !order.success || !order.qris_url) {
-      return res2.status(502).json({ success: false, error: (order && order.message) || 'Gagal membuat order di kingshop' });
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+module.exports = async (req, res) => {
+  cors(req, res);
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'POST') {
+    return res.status(405).json({ success: false, error: 'Method not allowed' });
+  }
+
+  const PROXY_URL = (process.env.KINGSHOP_PROXY_URL || '').replace(/\/$/, '');
+  const PROXY_KEY = process.env.KINGSHOP_PROXY_KEY || '';
+  if (!PROXY_URL || !PROXY_KEY) {
+    return res.status(500).json({
+      success: false,
+      error: 'Proxy belum dikonfigurasi (KINGSHOP_PROXY_URL / KINGSHOP_PROXY_KEY).',
+    });
+  }
+
+  let body = req.body;
+  if (typeof body === 'string') {
+    try { body = JSON.parse(body); } catch { body = {}; }
+  }
+  const playerId = String((body && body.playerId) || '').trim();
+  if (!/^\d{3,20}$/.test(playerId)) {
+    return res.status(400).json({ success: false, error: 'Format ID Player tidak valid.' });
+  }
+
+  try {
+    // 1) submit async
+    const sub = await proxyFetch(PROXY_URL, PROXY_KEY, '/api/order', {
+      method: 'POST',
+      body: JSON.stringify({ playerId }),
+    });
+    const orderId = sub.data && sub.data.order_id;
+    if (!orderId) {
+      return res.status(502).json({
+        success: false,
+        error: (sub.data && sub.data.error) || 'Gagal membuat order di proxy.',
+      });
     }
 
-    // 3) fetch checkout page -> QR
-    let qrUrl = null, payload = null;
-    try {
-      const q = await req(order.qris_url.replace(/\\\//g, '/'), jar, {
-        headers: { 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' },
-      });
-      const qhtml = await q.text();
-      const found = extractQr(qhtml, order.qris_url);
-      if (found) { qrUrl = found.qrUrl; payload = found.payload || null; }
-    } catch { /* fall through to fallback */ }
+    // 2) polling sampai terminal / budget habis
+    const deadline = Date.now() + POLL_BUDGET_MS;
+    let order = null;
+    while (Date.now() < deadline) {
+      await sleep(POLL_INTERVAL_MS);
+      const g = await proxyFetch(PROXY_URL, PROXY_KEY,
+        `/api/order/${encodeURIComponent(orderId)}`);
+      order = g.data && g.data.order;
+      if (order && ['SUCCESS', 'FAILED', 'MANUAL_VERIFICATION_REQUIRED',
+                    'BROWSER_ERROR', 'SUPPLIER_ERROR'].includes(order.status)) {
+        break;
+      }
+      order = order || { status: 'PROCESSING' };
+    }
 
-    return res2.status(200).json({
-      success: true,
-      qrUrl,                 // may be null -> frontend falls back to qris_url page
-      payload,
-      amount: AMOUNT,
-      transaction_id: order.transaction_id,
-      qris_url: (order.qris_url || '').replace(/\\\//g, '/'),
-      redirect_url: (order.redirect_url || '').replace(/\\\//g, '/'),
+    // 3) petakan ke bentuk response frontend
+    if (order && order.status === 'SUCCESS' && order.result) {
+      const r = order.result;
+      return res.status(200).json({
+        success: true,
+        qrUrl: r.qrUrl || null,
+        payload: r.payload || null,
+        amount: r.amount || 20000,
+        transaction_id: r.transaction_id || null,
+        qris_url: r.qris_url || null,
+        redirect_url: r.redirect_url || '',
+        order_id: orderId,
+      });
+    }
+    if (order && order.status === 'MANUAL_VERIFICATION_REQUIRED') {
+      return res.status(502).json({
+        success: false,
+        order_id: orderId,
+        error: 'Supplier butuh verifikasi manual. Coba lagi beberapa saat.',
+      });
+    }
+    if (order && ['FAILED', 'BROWSER_ERROR', 'SUPPLIER_ERROR'].includes(order.status)) {
+      return res.status(502).json({
+        success: false,
+        order_id: orderId,
+        error: order.error || 'Gagal membuat order.',
+      });
+    }
+    // masih PROCESSING saat budget habis — order tetap jalan di proxy
+    return res.status(202).json({
+      success: false,
+      pending: true,
+      order_id: orderId,
+      error: 'Order masih diproses. Tunggu sebentar lalu coba lagi.',
     });
   } catch (e) {
-    return res2.status(500).json({ success: false, error: 'Proxy error: ' + (e.message || e) });
+    return res.status(502).json({
+      success: false,
+      error: 'Tidak bisa menghubungi proxy kingshop. Pastikan service proxy jalan.',
+    });
   }
 };
